@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,10 +50,6 @@ public class MainController {
 		return mv;
 	}
 	
-	/**
-	 * 방 페이지
-	 * @return
-	 */
 	@RequestMapping("/room")
 	public ModelAndView room() {
 		ModelAndView mv = new ModelAndView();
@@ -62,11 +57,6 @@ public class MainController {
 		return mv;
 	}
 	
-	/**
-	 * 방 생성하기
-	 * @param params
-	 * @return
-	 */
 	@RequestMapping("/createRoom")
 	public @ResponseBody List<Chatting> createRoom(@RequestParam HashMap<Object, Object> params){
 		String roomName = (String) params.get("roomName");
@@ -75,16 +65,12 @@ public class MainController {
 		String category = (String) params.get("category");
 		String c_b_seq = (String) params.get("c_b_seq");
 		String c_b_seq_offer = (String) params.get("c_b_seq_offer");
-		log.info("시퀀스 테스트"+c_b_seq);
 		if(c_b_seq.contains("SM")) {
 			c_b_seq_offer = c_b_seq;
 		}
 		String nickname = memberservice.getNicknameS(email);
 		String gnickname = memberservice.getNicknameS(gemail);
 		
-		log.info("방 만들 때 이메일"+email);
-		log.info("방 만들 때 이메일"+gemail);
-		log.info("방 만들 때 이메일"+roomName);
 		if(roomName != null && !roomName.trim().equals("")) {
 			Chatting chatting = new Chatting();
 			UUID roomUUID = UUID.randomUUID();
@@ -116,26 +102,14 @@ public class MainController {
 		}
 	}
 	
-	/**
-	 * 방 정보가져오기
-	 * @param params
-	 * @return
-	 */
 	@RequestMapping("/getRoom")
 	public @ResponseBody List<Chatting> getRoom(@RequestParam HashMap<Object, Object> params){
-		log.info("getRoom:"+roomList);
 		String email = (String) params.get("email");
-		log.info("email: "+email);
 		chattinglist = chattingservice.listS(email, email);
-		log.info("getRoom:"+chattinglist);
 		String uN = memberservice.getNicknameS(email);
 		return chattinglist;
 	}
 	
-	/**
-	 * 채팅방
-	 * @return
-	 */
 	@RequestMapping("/moveChating")
 	public ModelAndView chating(@RequestParam HashMap<Object, Object> params, HttpSession session) {
 		ModelAndView mv = new ModelAndView();	
@@ -145,14 +119,8 @@ public class MainController {
 		String nickname = (String) params.get("nickname");
 		String gnickname = (String) params.get("gnickname");
 		String gemail = memberservice.getemailS(gnickname);
-		log.info(roomNumber);
-		log.info("무브챗 이메일: "+email);
-		log.info("uN"+uN);
-		log.info("gnick"+gnickname);
 		chattinglist = chattingservice.listS(email, email);
-		log.info(chattinglist);
 		List<Chatting> new_list = chattinglist.stream().filter(o->o.getC_number().equals(roomNumber)).collect(Collectors.toList());
-		log.info("뉴리스트"+roomNumber+new_list);
 		if(new_list != null && new_list.size() > 0) {
 			mv.addObject("nickname", nickname);
 			mv.addObject("gnickname", gnickname);
@@ -171,9 +139,7 @@ public class MainController {
 	
 	@RequestMapping("/getNickName")
 	public @ResponseBody HashMap<String, String> getNickName(String email) {
-		log.info("겟닉이메일:"+email);
 		String userName = memberservice.getNicknameS(email);
-		log.info(userName);
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("userName", userName);
 		return map;
@@ -182,16 +148,12 @@ public class MainController {
 	public @ResponseBody List<Chatting> search(String c_owner, String c_guest, String c_subject){
 		List<Chatting> chattinglist = new ArrayList<Chatting>();
 		chattinglist = chattingservice.listsearchS(c_owner, c_guest, c_subject);
-		log.info("채팅리스트:" + chattinglist);
-		log.info("채팅리스트:" + c_owner);
-		log.info("채팅리스트:" + c_guest);
 		return chattinglist;
 	}
 	
 	public void readFile(String roomNumber) {
 		File file = new File("C:/Users/Kosmo/Desktop/file/roomnumber"+roomNumber+".txt");
 		String records ="";
-		//HashMap<String, String> map = new HashMap<String,String>();
 		recordslist = new ArrayList<HashMap<String, String>>();
 		String userName = "";
 		String msg = "";
@@ -202,30 +164,22 @@ public class MainController {
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "utf-8"));
 			while((records = br.readLine()) != null) {
-				log.info("레코즈:"+records);
 				
 				if(records.contains("userName:")) {
 					int idx = records.indexOf(":");
 					userName = records.substring(idx+1);
-					log.info("아이디 자름"+userName);
 					map.put("userName",userName);
-					log.info("##유저맵: "+map);
 				} 
 				if(records.contains("msg:")) {
 					int idx = records.indexOf(":");
 					msg = records.substring(idx+1);
-					log.info("메시지자름"+msg);
 					map.put("msg",msg);
-					//recordslist.add(map);
-					log.info("##메세지맵: "+map);
 					recordslist.add(map);
 					map = new HashMap<String,String>();
 				}
-				
-				log.info("##리스트: "+recordslist);
 			}
 		}catch(Throwable e) {
-			System.out.println("저런 파일이 없어요");
+			log.info("저런 파일이 없어요");
 		}
 		
 	}

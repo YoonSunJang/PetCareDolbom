@@ -5,12 +5,10 @@
 	<head>
     <title>Pet Care</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
-    <!-- 수정/삭제 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>      
-    <!-- 수정/삭제 끝-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/animate.css">   
@@ -21,8 +19,7 @@
     <link rel="stylesheet" href="/css/jquery.timepicker.css">
     <link rel="stylesheet" href="/css/flaticon.css">
     <link rel="stylesheet" href="/css/style.css">    
-    <!-- 부트스트랩 아이콘 스타일시트 추가-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <script type="text/javascript" language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/85570877c4.js" crossorigin="anonymous"></script>
   
@@ -43,12 +40,7 @@
     margin-right:10px;
     width: 200px;
     height: 200px;
-    /*overflow:hidden;*/
     float: left;
-    /*margin: 10px auto;
-    text-align: center;
-    object-fit: cover;
-    border-radius: 50%;*/
     }
     .photo .profile_img{
     width:100%;
@@ -67,7 +59,7 @@
     }
     strong.title {
     display: block;
-    color: #f24c59;
+    color: #a091f3;
     font-size: 20px;
     padding-bottom: 10px;
     font-weight: 700;
@@ -76,9 +68,9 @@
     .employer_text{
     width: 100%;
     position: relative;
-    border-bottom: 1px solid #ccc;
     padding: 0 10px;
     clear: both;
+    height:300px;
     }
     .petinfo{
     width: 100%;
@@ -133,7 +125,7 @@
 	}
 	.modal-bg {display:none;width:100%;height:100%;position:fixed;top:0;left:0;right:0;background: rgba(0, 0, 0, 0.6);z-index:999;}
 	.modal-wrap {display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:200px;background:white;opacity:0.9;z-index:1000;text-align:center;border-radius: 5px;}
-	.modal-wrap-report{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:500px;background:white;opacity:0.9;z-index:1000;text-align:center;border-radius: 5px;}
+	.modal-wrap-report{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:400px;background:white;opacity:0.9;z-index:1000;text-align:center;border-radius: 5px;}
 	.modal-message{width:80%;margin:auto;}
 	.modal-message .countText{text-align:right;}
  	#heart{
@@ -143,15 +135,20 @@
    	#heart:hover{
    		opacity:0.5;
    	}
+   	input.declaration{
+   	 background: url("/images/siren.png") no-repeat;
+   	 color:black;
+   	 border:none;
+   	 width:50px;
+   	 height:50px;
+   	 cursor:pointer;
+   	 object-fit: cover;
+   	}
   
   </style>
   <script>
   	  const b_seq = "${dolbom.dol_seq}";
 	  $(function(){
-		  //var date = new Date();
-		  //var year = date.getFullYear();
-		  //var byear = ${d}
-		  //console.log(year);
 		  $(".container").on("click", "#update, #delete", function(){
 			  
 		  });
@@ -193,33 +190,17 @@
   <body>
 <%@include file="../header.jsp" %>
     
-    <section class="hero-wrap hero-wrap-2" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-          <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span>Pet Care<i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-0 bread">우리동네 돌보미</h1>
-          </div>
+    <section class="hero-wrap hero-wrap-2">
+      <div class="container text-center d-flex justify-content-center">
+        <div class="no-gutters align-items-end" style="margin-top:100px; border-bottom:solid 3px #c1b8f2;">
+      		<h1 class="mb-0 bread text-dark">우리동네돌보미</h1>
+      		<p class="breadcrumbs mb-2"><span class="text-dark">Dolbom</span></p>
         </div>
       </div>
     </section>
 
     <section class="ftco-section ftco-no-pt ftco-no-pb">
     	<div class="container" style="height:800px;">
-    	<div class="d-flex flex-row justify-content-end mr-5">
-    	<c:if test="${checkWriter eq 'Y'}">
-		    		<div class="btn-group">
-						<button class="btn p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-							<span class="bi bi-three-dots"></span>
-						</button>
-						<ul id="${dolbom.dol_seq}" class="dropdown-menu">
-							<li id="update" class="btn text-secondary p-0"><a class="dropdown-item bi bi-eraser-fill" href="javascript:checkUpdate()"> 수정</a></li>
-							<li id="delete" class="btn text-secondary p-0"><a class="dropdown-item bi bi-x-lg" href="javascript:checkDelete()"> 삭제</a></li>
-						</ul>
-					</div>	
-				</c:if>
-				</div>
     	<div class="row mt-0" id="content" style="height:90%;">
     		<div class="col-lg-8 p-3 col-lg-8 bg-white shadow">
 	    		<div class="employer_info">
@@ -302,9 +283,8 @@
 	    			</div>
 	    			<!-- <i class="fa-solid fa-light-emergency-on"></i> -->
 	    			<div class="btn_wrap" style="padding:0;text-align:right;">
-	    			
-	    				<button type="submit" class="btn btn-info btn-lg" id="chatBtn" onclick="check();" style="background-color:#F34A4A;">채팅</button>	
-		    			<button type="submit" class="btn btn-info btn-lg" id="declaration"style="background-color:gray;" onClick="openReport();">신고</button>
+	    				<button type="submit" class="btn text-black rounded-pill px-3 text-white bi bi-chat-heart" style="background-color:#a091f3" id="chatBtn" onclick="check();"></button>
+	    				<button type="submit" class="btn btn-light rounded-pill px-4 text-secondary bi bi-exclamation-triangle-fill" id="declaration" onclick="openReport();"> 신고</button>
 		    		</div>
     			</div>
     			<div class="employer_text">
@@ -315,7 +295,13 @@
 	    				<strong class="title">이런 도움을 드릴게요</strong>
 	    			</c:if>
     			<div>${dolbom.content}</div>
-    		</div>
+    			</div>
+    			<c:if test="${dolbom.email ==sessionScope.email}">
+    			<div class="btn-group col-md-3 d-flex align-self-center" style="margin:auto">
+	    			<input type="button" class="btn btn-light rounded-pill px-4 text-secondary delete" onclick="checkDelete()" value="삭제">
+					<input type="button" class="btn text-black rounded-pill px-4 text-white" style="background-color:#a091f3" onclick="checkUpdate()" value="수정">
+    			</div>
+    			</c:if>
     		</div>
     		<!-- col 끝 -->
     		<div class="col-lg-4 p-3 sidebar bg-white shadow">
@@ -395,7 +381,7 @@
     
 	<div class="modal-bg" onClick="popClose();"></div>
 	<div class="modal-wrap">
-		<div class="modal-title" style="background: linear-gradient(45deg, #207dff 0%, #00bd55 100%);opacity:0.5;">
+		<div class="modal-title" style="background: linear-gradient(to bottom right, #97a3ea 20%, #a091f3 60%, #9283f2 90%) no-repeat; opacity:0.8;">
 			<h5 style="color:white;">우리동네 돌보미 채팅</h5>
 		</div>	
 		<div class="modal-message">
@@ -421,21 +407,21 @@
 						</c:forEach>
 						</select>
 					</div>
-					<div style="position: absolute;top:80%;left:43%;">
-					 <button class="submitMsgBtn" onClick="submitMsg('${dolbom.category}');">채팅하기</button>
+					<br>
+					<div class="d-flex justify-content-center">
+					 <button type="submit" class="btn text-black rounded-pill px-4 text-white submitMsgBtn" onClick="submitMsg('${dolbom.category}');" style="background-color:#a091f3">채팅하기</button>
 					</div>
 				</c:otherwise>
 			</c:choose>
 			</c:if>
 			<c:if test="${dolbom.category eq '요청'}">
-				<div>
-					<span>돌봄 시간 및 종류를 확인해주세요</span>
-				</div>
-				<div style="padding:5px;font-size:1.2rem;">
+				<br>
+				<div style="padding:5px;font-size:1.1rem;">
 					<span id="header">${dolbom.header}</span>/<span id="kind">${dolbom.kind}</span>
 				</div>
-				<div style="position: absolute;top:80%;left:43%;">
-					 <button class="submitMsgBtn" onClick="submitMsg('${dolbom.category}');">채팅하기</button>
+				<br>
+				<div class="d-flex justify-content-center">
+					<button type="submit" class="btn text-black rounded-pill px-4 text-white submitMsgBtn" onClick="submitMsg('${dolbom.category}');" style="background-color:#a091f3">채팅하기</button>
 				</div>
 			</c:if>
 		</div>
@@ -444,24 +430,16 @@
 	</div>
 	
 	<div class="modal-wrap-report">
-		<div class="modal-title" style="background: linear-gradient(45deg, #207dff 0%, #00bd55 100%);opacity:0.5;">
-			<h5 style="color:white;">우리동네 돌보미 신고하기</h5>
+		<div class="modal-title" style="background: linear-gradient(to bottom right, #97a3ea 20%, #a091f3 60%, #9283f2 90%) no-repeat;opacity:0.8;">
+			<h5 style="color:white;">신고하기</h5>
 		</div>
-		<div class="modal-message">
+		<div class="modal-message d-flex justify-content-center">
 			<form method="post" action="/report.do" name="report">
 			<table>
 			<tr>
-			<td>작성자 닉네임</td>
-			<td id="rep_wemail">${dolbom.email}</td>
-			</tr>
-			<tr>
-			<td>신고자 닉네임</td>
-			<td id="rep_remail">${sessionScope.email}</td>
-			</tr>
-			<tr>
 			<td>
 			<div id="selectdiv">
-			<span>신고 사유</span>
+			<br>
 			<select id="rep_reason" name="rep_reason">
 				<option value="약속파기">약속파기</option>
 				<option value="욕설/비방">욕설/비방</option>
@@ -472,14 +450,13 @@
 			</div>
 			</td>
 			</tr>
-			<tr><td><textarea id="rep_content" name="rep_content" placeholder="구체적인 신고 사유를 입력해주세요"></textarea></td></tr>
+			<tr><td><textarea id="rep_content" name="rep_content" style="height: 15em;" placeholder="구체적인 신고 사유를 입력해주세요"></textarea></td></tr>
 			<tr><td><div id="btns">
 			<input type="hidden" id="rep_wemail" name="rep_wemail" value="${dolbom.email}">
 			<input type="hidden" id="rep_remail" name="rep_remail" value="${sessionScope.email}">
 			<input type="hidden" id="rep_wseq" name="rep_wseq" value="${dolbom.dol_seq}">
 			<input type="hidden" id="rep_state" name="rep_state" value="미처리">
-			<button class="sendBtn" id="sendBtn">전송</button>
-			<button type="button" onclick="popClose();">닫기</button>
+			<button type="submit" id="sendBtn" class="btn text-black rounded-pill px-4 text-white sendBtn" style="background-color:#a091f3">전송</button>
 			</div>
 			</td></tr>
 			</table>
@@ -496,14 +473,9 @@
 		var email = "${dolbom.email}";
 		var userEmail = "${sessionScope.email}";
 		var dolSeq = "${dolbom.dol_seq}";
-		//console.log(email);
-		//console.log(userEmail);
-		//console.log(dolSeq);
 		if(userEmail!=""){
 			if(email!=userEmail){
 				popOpenReport();
-				//url='/report.do?rep_wemail='+email+'&rep_remail='+userEmail+'&rep_wseq='+dolSeq;
-				//window.open(url, '신고', 'width=300px,height=500px,scrollbars=yes');
 			}else{
 				alert("본인 신고는 불가합니다.");
 				return false;
@@ -546,7 +518,7 @@
 				if(results.msg=='new'){
 					popOpen();
 				}else{
-					window.open(results.url, '채팅', 'width=700px,height=800px,scrollbars=yes');
+					window.open(results.url, '우리동네 돌보미 채팅', 'width=450px,height=515px,location=no');
 				}
 			}
 		});
@@ -575,19 +547,6 @@
 			alert("로그인 후 이용해주세요!");
 		}
 	}
-	/*메세지 텍스트 입력 수*/
-	/*$(document).on('keyup', '#textMsg', function(e){
-		var textMsg = $(this).val();    
-		$('#cntSPAN').text(getBytes(textMsg));
-	});
-	
-	function getBytes(str){
-		var cnt = 0;
-		for(var i =0; i<str.length;i++) {
-			cnt += (str.charCodeAt(i) >128) ? 2 : 1;
-		}
-		return cnt;
-	}*/
 
 	/*메세지 모달 팝업 창*/
 	function popOpen() {	
@@ -626,7 +585,6 @@
 			type: "POST",
 			data: {dol_seq:$("#dol_seq").val(),rdol_seq:rdol_seq,kind:kind,header:header},
 			success:function(data){
-				alert("요청성공!");
 				popClose();
 			}
 			

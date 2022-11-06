@@ -21,6 +21,7 @@ import com.petcare.domain.Files;
 import com.petcare.domain.Member;
 import com.petcare.domain.Objects;
 import com.petcare.domain.Pet;
+import com.petcare.service.AddressService;
 import com.petcare.service.FileService;
 import com.petcare.service.MailSendService;
 import com.petcare.service.MemberService;
@@ -37,6 +38,7 @@ public class MemberController {
 	private MemberService mService;
 	private PetService pService;
 	private FileService fService;
+	private AddressService addressservice;
 
 	@GetMapping("/goSignupM.do")
 	public String goSignupM() {
@@ -65,15 +67,18 @@ public class MemberController {
 		return "redirect:login.do";
 	}	
 	@GetMapping(value="mypage.do", params = {"m_seq"})
-	public ModelAndView getMyinfo(@RequestParam("m_seq") String m_seq) {
+	public ModelAndView getMyinfo(@RequestParam("m_seq") String m_seq,HttpSession session) {
 		Member memberone = mService.getMyinfoS(m_seq);
+		String email = (String) session.getAttribute("email");
+		String mydong = addressservice.selectMydong(email);
 		ModelAndView mv = new ModelAndView("member/mypage", "memberone", memberone);
 		List<Files> profile = fService.getFiles(m_seq);
 		mv.addObject("profile", profile);
+		mv.addObject("mydong",mydong);
 		return mv;						
 	}
 	@PostMapping("/updateM.do")
-	public String updateM(Member member, ArrayList<MultipartFile> multipartFiles, Objects fnames){
+	public String updateM(HttpSession session,Member member, ArrayList<MultipartFile> multipartFiles, Objects fnames){
 		if(fnames.getFnames() != null) {
 			for(String fname : fnames.getFnames()) {
 				fService.removeFiles(fname);
@@ -88,7 +93,8 @@ public class MemberController {
 			fService.setFiles(multipartFiles, member.getM_seq(),"M");
 		}
 		mService.updateMS(member);
-		return "redirect:mypage.do";
+		session.setAttribute("member", member);
+	    return "member/mypage";
 	}
 	@GetMapping(value="deleteM.do", params = {"m_seq"})
 	public String deleteM(@RequestParam("m_seq") String m_seq, HttpServletRequest httprequest) {
@@ -202,6 +208,7 @@ public class MemberController {
 		}
 		HashMap<String, Object> results = new HashMap<String, Object>();
 		results.put("lists", lists);
+		log.info("@@lists"+lists);
 		return results;
 	}
 	@PostMapping("/updateP.do")

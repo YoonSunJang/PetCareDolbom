@@ -18,52 +18,86 @@
 <link rel="stylesheet" href="/css/style.css">
 <script src="/js/jquery.min.js"></script>
 <style>
-select{
-	text-align:center;
-	padding:0rem !important;
-}
-.files{
-	height:3rem;
-}
+   	.files{
+   		height:3rem;
+   	}
+   	.box-wrap{
+   		padding:1.5%;
+   	}
+   	.box{
+   		position:relative;
+   		width:100%;
+   	}
+   	.box::after{
+   		display:block;
+   		content:"";
+   		padding-bottom:100%;
+   	}
+   	.img{
+   		position: absolute;
+   		margin: 0 auto;
+   		width: 100%;
+   		height: 100%;
+   		object-fit:cover;
+   	}
+   	#imageList{
+   		position:relative;
+   		padding:1.5%;
+   	}
+   	.plus{
+   		cursor:pointer;
+   	}
+   	#plus:hover, .selectedImg:hover{
+   		opacity:0.5;
+   	}
+   	.btn:hover{
+   		filter:brightness(1.5) !important;
+   	}
+   	#category, #title, #content, #price {
+   		border-color: #dee2e6;
+   	}
+   	#content{
+   		padding:3rem;
+   	}
+   	.headtitle{
+		margin:auto;
+		text-align:center;
+		font-weight:bold;
+	}
+	.headtitle h3{
+		opacity: .8;
+		background: linear-gradient(to bottom right, #97a3ea 20%, #a091f3 60%, #9283f2 90%) no-repeat;
+		color:white;
+		border-radius:5px;	
+	}
 </style>
  </head>
   
   <body>
 <%@include file="../header.jsp" %>
     
-    <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-          <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span>Free Board<i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-0 bread">자유 게시판</h1>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <section class="ftco-section bg-light">
+    <section class="ftco-section bg-light">    
     <div class="container">
-    	<h3><span>게시물 작성</span></h3>
-    	<input type="hidden" id="g_seq" value="${galleryList.g_seq}">
-		<div class="row row-md-12 mb-3">
-			<div class="col-12 col-md-12 input-group p-0">
-				<label for="fileDiv" class="form-label m-0">파일 등록</label>
-				<button type="button" class="btn btn-outline-primary btn-sm" onClick="uploadClick();"><i class="fa fa-file-image-o" aria-hidden="true"></i></button>
-				<input class="form-control" type="file" id="upload" style="display:none" multiple accept=""/>
+    	<div class="headtitle"><h3>갤러리 글 등록</h3></div>
+    	<div class="rounded shadow bg-white p-5">
+	    	<input type="hidden" id="g_seq" value="${galleryList.g_seq}">
+			<div class="row row-md-12 mb-3">
+				<div class="col-12 col-md-12 input-group p-0">
+					<label for="fileDiv" class="form-label m-0">파일 등록</label>
+					<button type="button" class="btn btn-outline-primary btn-sm" onClick="uploadClick();"><i class="fa fa-file-image-o" aria-hidden="true"></i></button>
+					<input class="form-control" type="file" id="upload" style="display:none" multiple accept=""/>
+				</div>
+				<div class="col-12 col-md-12">
+					<div class="row row-md-12 border rounded bg-white" id="imageList"></div>
+				</div>
 			</div>
-			<div class="col-12 col-md-12">
-				<div class="row row-md-12 border rounded bg-white" id="imageList"></div>
+			<div class="row row-md-12 mb-3">
+				<label for="content" class="col-12 col-md-12 form-label m-0 p-0">내용</label>
+				<textarea class="col-12 col-md-12 form-control" id="content" rows="15"></textarea>
 			</div>
-		</div>
-		<div class="row row-md-12 mb-3">
-			<label for="content" class="col-12 col-md-12 form-label m-0 p-0">내용</label>
-			<textarea class="col-12 col-md-12 form-control" id="content" rows="15"></textarea>
-		</div>
-		<div class="col-12 col-md-12 mb-3 text-center">
-			<input type="button" class="btn btn-danger" value="취소"/>
-			<input type="button" class="btn btn-primary" value="등록" onClick="submit();"/>
+			<div class="col-12 col-md-12 mb-3 text-center">
+				<input type="button" class="btn text-black rounded-pill px-4 text-white" id="saveButton" style="background-color:#a091f3;border:none;" value="등록" onclick="submit();">
+			</div>
 		</div>
 	</div>
     </section>

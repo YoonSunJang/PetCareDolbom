@@ -290,21 +290,21 @@
     	#content{
     		padding:3rem;
     	}
+    	.headtitle{
+			margin:auto;
+			text-align:center;
+			font-weight:bold;
+		}
+		.headtitle h3{
+			opacity: .8;
+			background: linear-gradient(to bottom right, #97a3ea 20%, #a091f3 60%, #9283f2 90%) no-repeat;
+			color:white;
+			border-radius:5px;	
+		}
     </style>
   	</head>
 	<body>
 		<%@include file="../header.jsp" %>
-	    <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-	      <div class="overlay"></div>
-	      <div class="container">
-	        <div class="row no-gutters slider-text align-items-end">
-	          <div class="col-md-9 ftco-animate pb-5">
-	          	<p class="breadcrumbs mb-2"><span>Market<i class="ion-ios-arrow-forward"></i></span></p>
-	            <h1 class="mb-0 bread">나눔 마켓</h1>
-	          </div>
-	        </div>
-	      </div>
-	    </section>
 	    <section class="ftco-section bg-light">
 		    <div class="container">
 			    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby=modalLabel" aria-hidden="true">
@@ -318,6 +318,7 @@
 						</div>
 					</div>
 				</div>
+				<div class="headtitle"><h3>나눔마켓 글 수정</h3></div>
 				<div class="row rounded shadow bg-white p-5">
 		      		<div class="col-12 mb-md-4 mb-2">
 		      			<div class="row">
@@ -367,7 +368,7 @@
 			    		<input type="button" class="btn btn-light rounded-pill px-4 text-secondary" value="취소"/>
 			    	</div>
 			    	<div class="col-6 px-1">
-			    		<input type="button" class="btn text-black rounded-pill px-4 text-white" style="background-color:#8dc5a6" value="수정" onClick="validate();"/>
+			    		<input type="button" class="btn text-black rounded-pill px-4 text-white" style="background-color:#a091f3" value="수정" onClick="validate();"/>
 			    	</div>
 			    </div>
 			</div>

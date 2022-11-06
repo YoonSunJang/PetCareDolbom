@@ -39,9 +39,7 @@
     		$("#petage").val(age);
     		
     		<c:forEach var="i" items="${profile}">
-	    		console.log('ifname: ${i.fname}'); //ok
 				savedImages.push({fname: '${i.fname}', ofname: '${i.ofname}'});
-				console.log('sa: '+Object.values(savedImages[0])); //ok
 			</c:forEach>
 			
 			if(savedImages != null){
@@ -51,18 +49,9 @@
 				});
 				$("#imageList").append(html);
 			}
-			$("#petphoto").on("change", function(e){
-    			//$("#imageList").empty();
-    			
+			$("#petphoto").on("change", function(e){    			
     			var images = e.target.files;
     			imageArr = Array.prototype.slice.call(images);
-    			/* 파일 확장자 체크
-    			for(var i=0; i<images.length; i++){
-    				if(!checkExtension(images[i].name, images[i].size)){
-    					return false;
-    				}
-    			}
-    			*/
     			preview(imageArr);
     		});
     	});
@@ -77,7 +66,7 @@
     					imgNum ++;
     					$("#imageList").append(html);
     				}
-    				reader.readAsDataURL(i); //onload 트리거
+    				reader.readAsDataURL(i); 
     			}else{
     				
     			}
@@ -91,9 +80,7 @@
     		if($(imgObj).attr("class").includes("selected")){
     			selectedImages.splice(i, 1);
     		}else if($(imgObj).attr("class").includes("saved")){
-    			//savedImages.splice(i, 1);
     			delete savedImages[i].ofname;
-    			console.log(savedImages[i].ofname); //undefined
     		}
     		$(imgObj).remove();
     	}	    
@@ -104,20 +91,15 @@
 				if(selectedImages[i] != null){
 					formData.append("multipartFiles", selectedImages[i]);
 				}else{
-	    			alert('반려동물의 사진을 등록해야합니다');
-					return false;
+					formData.append("multipartFiles", null);
 	    		}				
 			}
 			for(var i=0, j=0; i<savedImages.length; i++){
-				console.log('실행됨'); //한번만 하는거 맞음
-				if(savedImages[i].ofname == null){ //1025여기서갈림
-					console.log("###sa "+savedImages[i].ofname); //근데 여기서 왜 null?
+				if(savedImages[i].ofname == null){ 
 					formData.append("fnames["+j+"]", savedImages[i].fname);					
 					j++;
-				}else{
-					//formData.append("fnames[0]", null);
-					alert('반려동물의 사진을 등록해야합니다');
-					return false;
+				}else{ 
+					formData.append("fnames[0]", null);
 				}
 			}
 			
@@ -159,7 +141,6 @@
 	    	formData.append("big", $("input[name='petbig']:checked").val());
 			formData.append("memo", $('#memo').val());
 			formData.append("petseq", "${petone.petseq}");
-			console.log("#sa: "+formData.get("fnames[0]")); //null
 			
 	    	$.ajax({
 				type : 'POST',
@@ -168,12 +149,8 @@
 				processData : false,
 				contentType : false,
 				success : function(){
-					if(data){
-						alert('수정 되었습니다.');
-						location.href="/member/mypage.do?m_seq=${sessionScope.member.m_seq}";
-					}else{
-						alert("수정 에러")
-					}
+					alert('수정 되었습니다.');
+					location.href="/member/mypage.do?m_seq=${sessionScope.member.m_seq}";
 				}
 			});
 	    }
@@ -186,36 +163,15 @@
   </head>
   <body>
 	<%@include file="../header.jsp" %>
-    
-    <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-          <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span>update Pet<i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-0 bread">반려동물 정보수정</h1>
-          </div>
-        </div>
-      </div>
-    </section>
-    
     <section class="ftco-section bg-light">
     <div class="container">
-    	<div class="row justify-content-center">
-			<div class="col-md-6 text-center mb-5">
-				<h2 class="heading-section">#Update Pet</h2>
-			</div>
-		</div>
 		<div class="row justify-content-center">
 			<div class="col-md-12">
 				<div class="wrapper">
-					<div class="row no-gutters">
-						<div class="col-md-5 d-flex align-items-stretch">
-							<div class="info-wrap w-100 p-5 img" style="background-image: url(images/img.jpg);"></div>
-						</div>
+					<div class="row justify-content-center">
 						<div class="col-md-7">
 							<div class="contact-wrap w-100 p-md-5 p-4">
-								<h3 class="mb-4">반려동물 정보수정</h3>								
+								<h3 class="mb-4">마이펫 수정</h3>								
 								<div class="row">								
 									<div class="col-md-6">
 										<label class="label" for="name">NAME</label>
@@ -279,7 +235,7 @@
 										</div>
                    					</div>
                    					<div class="col-md-12">
-										<div class="form-group">										
+										<div class="form-group d-flex justify-content-center">										
 											<input onClick="submit();" type="button" value="Update" class="btn btn-primary">
 										</div>
 									</div>                      					

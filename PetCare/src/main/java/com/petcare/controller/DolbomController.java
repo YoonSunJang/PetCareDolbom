@@ -346,7 +346,6 @@ public class DolbomController {
 				fnames.add(files.get(0).getFname());
 			}
 		}
-		log.info("@@@pagination:"+pagination);
 		results.put("fnames", fnames);
 		results.put("dolbomlist", dolbomlist);
 		results.put("pagination", pagination);
@@ -420,7 +419,6 @@ public class DolbomController {
 				fnames.add(files.get(0).getFname());
 			}
 		}
-		log.info("########dolbomlist"+dolbomlist);
 		results.put("dolbomlist", dolbomlist);
 		results.put("fnames", fnames);
 

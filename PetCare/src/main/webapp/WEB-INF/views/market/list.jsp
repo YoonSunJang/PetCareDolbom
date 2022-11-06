@@ -307,14 +307,11 @@
 		</div>
 	</div>
 <%@include file="../header.jsp" %>
-    <section class="hero-wrap hero-wrap-2">;
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-          <div class="col-md-12 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span>Market<i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-0 bread">나눔 마켓</h1>
-          </div>
+    <section class="hero-wrap hero-wrap-2 bg-light">
+      <div class="container text-center d-flex justify-content-center">
+        <div class="no-gutters align-items-end" style="margin-top:100px; border-bottom:solid 3px #c1b8f2;">
+      		<h1 class="mb-0 bread text-dark">나눔 마켓</h1>
+      		<p class="breadcrumbs mb-2"><span class="text-dark">Market</span></p>
         </div>
       </div>
     </section>

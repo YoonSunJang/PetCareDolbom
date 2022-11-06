@@ -45,7 +45,7 @@ public class InfoController implements Cloneable {
 		
 		int infocp = 1;
 		if(cpStr == null) {
-			Object cpObj = session.getAttribute("cp");
+			Object cpObj = session.getAttribute("infocp");
 			if(cpObj != null) {
 				infocp = (Integer)cpObj;
 			}
@@ -59,7 +59,7 @@ public class InfoController implements Cloneable {
 		session.setAttribute("ps", ps);
 		
 		if(infocatgo == null) {
-			Object catgoObj = session.getAttribute("catgo");
+			Object catgoObj = session.getAttribute("infocatgo");
 			if(catgoObj !=null) {
 				infocatgo = (String) catgoObj;
 			}
@@ -69,7 +69,7 @@ public class InfoController implements Cloneable {
 		session.setAttribute("infocatgo", infocatgo);
 		
 		if(infokeyword == null) {
-			Object keywordObj = session.getAttribute("keyword");
+			Object keywordObj = session.getAttribute("infokeyword");
 			if(keywordObj != null) {
 				infokeyword = (String) keywordObj;
 			}
@@ -106,8 +106,6 @@ public class InfoController implements Cloneable {
 		ModelAndView mv = new ModelAndView("info/list","listVo",infoVo);
 		List<Info> listpinS = infoservice.listpinS();
 		mv.addObject("listpinS",listpinS);
-		log.info("핀즈: "+listpinS);
-		log.info("핀즈: "+infoVo);
 		if(infoVo.getList().size() == 0 && listpinS.size()==0) {
 			if(infocp>1) {
 				return new ModelAndView("redirect:list.do?cp="+(infocp-1));
@@ -125,14 +123,11 @@ public class InfoController implements Cloneable {
 	}
 	@GetMapping("/infodelete.do")
 	public String delete(String n_seq) {
-		log.info("인포시퀀스"+n_seq);
 		infoservice.deleteS(n_seq);
 		List<Files> filecontent = filestoreservice.filecontentS(n_seq);
 		for(int i=0;i<filecontent.size();++i) {
-			log.info(filecontent.get(i).getFname());
 			String fname = filecontent.get(i).getFname();
 			File file = new File(Path.FILE_STORE, fname);
-			log.info("파일:"+file);
 			if(file.exists()) file.delete();
 		}
 		filestoreservice.deleteS(n_seq);
@@ -146,10 +141,8 @@ public class InfoController implements Cloneable {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("infolist",list);
 		mv.setViewName("info/infocontent");
-		log.info(filelist);
 		for(int i=0;i<filelist.size();i++) {
 			String fname = filelist.get(i).getFname();
-			log.info("소속파일이름: "+fname);
 			file = new File(Path.FILE_STORE, fname);
 			if(file.exists()) {
 				mv.addObject("filelist",filelist);
@@ -166,13 +159,11 @@ public class InfoController implements Cloneable {
 	public ModelAndView updatepage(String n_seq) {
 		Info list = infoservice.contentS(n_seq);
 		List<Files> filelist = filestoreservice.filecontentS(n_seq);
-		log.info("filelist: "+filelist);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("infolist",list);
 		File file = new File("");
 		for(int i=0;i<filelist.size();i++) {
 			String fname = filelist.get(i).getFname();
-			log.info("소속파일이름: "+fname);
 			file = new File(Path.FILE_STORE, fname);
 			if(file.exists()) {
 				mv.addObject("filelist",filelist);
@@ -189,12 +180,9 @@ public class InfoController implements Cloneable {
 	public @ResponseBody boolean write(Info info, MultipartHttpServletRequest mhsr, Files filestore) {
 		filestoreservice.setMultipartRequest(mhsr);
 		Map<String, List<Object>> map = filestoreservice.getUpdateFileName();
-		log.info("#map: "+ map);
-		
 		Object fnames = map.values().toArray()[0];
 		Object ofnames = map.values().toArray()[1];
 		Object fsizes = map.values().toArray()[2];
-
 		List<Object> fnamelist = (List<Object>) fnames;
 		List<Object> ofnamelist = (List<Object>) ofnames;
 		List<Object> fsizelist = (List<Object>) fsizes;
@@ -202,31 +190,21 @@ public class InfoController implements Cloneable {
 			String fname = (String) fnamelist.get(i);
 			String ofname = (String) ofnamelist.get(i);
 			long fsize = (long) fsizelist.get(i);
-			log.info("저장확인: "+ofname+"횟수: "+i);
 			filestore.setFname(fname);
 			filestore.setOfname(ofname);
 			filestoreservice.insertS(filestore);	
 		}
-		log.info("info");
 		infoservice.insertS(info);
 		return true;
 	}
 	
 	@GetMapping("/filedelete.do")
 	public void filedelete(@RequestParam(value="deleteList[]") List<String> deleteList, String n_seq) {
-		log.info("�븙�븙�븙�븙�븙�븙");
-		log.info(deleteList);
-		log.info(n_seq);
-		
 		for(int i=0; i<deleteList.size();++i) {
 			String ofname = deleteList.get(i).toString();
 			List<Files> selectlist = filestoreservice.fileupdatedeleteselectS(n_seq,ofname);
-			log.info(selectlist);
-
-			log.info(selectlist.get(0).getFname());
 			String fname = selectlist.get(0).getFname();
 			File file = new File(Path.FILE_STORE, fname);
-			log.info("#�뙆�씪:"+file);
 			if(file.exists()) file.delete();
 		
 			filestoreservice.fileupdatedeleteS(n_seq, ofname);
@@ -253,10 +231,7 @@ public class InfoController implements Cloneable {
 		for(int i=0;i<ofnamelist.size();++i) {
 			String fname = (String) fnamelist.get(i);
 			String ofname = (String) ofnamelist.get(i);
-			log.info("#ofname: "+ofname);
 			long fsize = (long) fsizelist.get(i);
-			
-			log.info("filelist1: "+filelist);
 			
 			List<String> ofilenamelist = new ArrayList<>();
 			String ofnametest ="";
@@ -287,7 +262,6 @@ public class InfoController implements Cloneable {
 	}
 	@GetMapping("/checkdelete.do")
 	public String checkdelete(@RequestParam(value="del_list[]") List<String> del_list) {
-		log.info("del_list: "+del_list);
 		for(int i=0;i<del_list.size();i++) {
 			String n_seq = del_list.get(i);
 			infoservice.deleteS(n_seq);

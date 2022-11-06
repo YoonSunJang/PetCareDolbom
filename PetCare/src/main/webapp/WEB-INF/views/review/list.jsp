@@ -40,15 +40,15 @@
 	}
 	
 	.text-dark {
-      display: -webkit-box;/* crom */
-      display: -ms-flexbox;/* firefox */
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: box;
-      max-height:90px;/*글박스 높이 */
-      overflow:hidden;/*오버되는 글 숨기기 */
-      text-overflow:ellipsis;/*ellipsis=생략  */
-      word-break:break-all;/*텍스트가 내용 상자를 넘칠 때마다 줄 바꿈을 표시할지 여부를 설정  */
+      max-height:90px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      word-break:break-all;
       -webkit-box-orient:vertical;
-      -webkit-line-clamp:2/* 2줄 이상은 ... 처리 */
+      -webkit-line-clamp:2
 	 }
 	a.blog-img{
 	border-radius:50%;
@@ -59,30 +59,31 @@
 	a.text-dark:hover, a.text-dark:focus{
 		color: purple !important;
 	}
+	#my_img {filter: brightness(1);}
+	#my_img:hover { filter: brightness(0.5);}
+	/*.ftco-animate{
+		display:none;
+	}*/
 	</style>
 </head>
 
 	<body>
 		<%@include file="../header.jsp"%>
 	
-	<section class="hero-wrap hero-wrap-2">;
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-          <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span>Review<i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-0 bread">돌보미 후기</h1>
-          </div>
+	<section class="hero-wrap hero-wrap-2 bg-light">
+      <div class="container text-center d-flex justify-content-center">
+        <div class="no-gutters align-items-end" style="margin-top:100px; border-bottom:solid 3px #c1b8f2;">
+      		<h1 class="mb-0 bread text-dark">돌보미 후기</h1>
+      		<p class="breadcrumbs mb-2"><span class="text-dark">Review</span></p>
         </div>
       </div>
     </section>
-
-
 		
 		<section class="ftco-section bg-light">
 			<div class="container">
+			<div class="shadow bg-white p-5">
 			<form action="/review/list.do" method="get">
-			<div class="outer d-flex justify-content-between">
+			<div class="outer d-flex justify-content-between pb-2">
 				<div id="searchSelect" class="d-flex col-12 col-md-2 key-box align-self-center pr-1">
 					<select name="category" class="form-select border-0 p-0" aria-label="Default select example" style="font-size:14px;height:52px;">
 						<option value="content" ${category eq 'content' ? 'selected' : ''}>내용</option>
@@ -90,14 +91,14 @@
 						<option value="all" ${category eq 'all' ? 'selected' : ''}>내용+돌보미</option>
 					</select>
 				</div>
-				<div class="d-flex col-12 col-md-4 p-0">
+				<div class="d-flex col-12 col-md-4 pt-3">
 				
 					<input type="text" class="word form-control border-0 p-0 align-self-center" placeholder="검색어를 입력해주세요" name="keyword" size="40" required="required" id="keyword" value="${keyword}" />			
 					<button id="searchBtn" type="submit" class="btn bi bi-search-heart fs-5 text-secondary px-2 py-0"></button>
 					<button type="button" id="write" class="btn bi bi-pencil fs-5 text-secondary px-2 py-0" onclick="location.href='/review/writeList';"></button>
 					<button type="button" id="resetBtn" class="btn bi bi-arrow-clockwise fs-5 text-secondary px-2 py-0"></button>
 				</div>
-				<div class="col-12 col-md-4 p-0">
+				<div class="col-12 col-md-4">
 				<div class="text-end">
 					<a href="#none" onclick="searchOrder(this)">최신순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
 					<a href="#none" onclick="searchOrder(this)">별점순</a>&nbsp&nbsp&nbsp
@@ -117,7 +118,7 @@
 		    						</c:when>
 		    						<c:otherwise>
 		    							<a href="content.do?cr_seq=${carereview.cr_seq}" class="block-20 rounded mb-3"
-											style="background-image: url('/review/display?imgName=${fnames[status.index]}');">
+											id="my_img" style="background-image: url('/review/display?imgName=${fnames[status.index]}');">
 										</a>
 	    							</c:otherwise>
 	    						</c:choose> 
@@ -164,6 +165,7 @@
 						</div>
 					</c:forEach>
 				</div>
+			</div>
 			</div>
 		</section>
 
@@ -218,7 +220,7 @@
 				$.each(results.list, function(idx, review){				
 					html+="<div class='col-4 ftco-animate fadeInUp ftco-animated'>";
 					html+="<div class='blog-entry align-self-center p-2'>";
-					html+="<a href='content.do?cr_seq="+review.cr_seq+"' class='block-20 rounded mb-3' style='background-image: url(/review/display?imgName="+results.fnames[idx]+"');></a>";
+					html+="<a href='content.do?cr_seq="+review.cr_seq+"' class='block-20 rounded mb-3' id='my_img' style='background-image: url(\"/review/display?imgName="+results.fnames[idx]+"\")';></a>";
 					html+="<div class='d-flex justify-content-between'>";
 					html+="<h5 class='m-0 align-self-center fw-bold'>"+review.writer+"님의 후기</h5>";
 					html+="<div class='review' style='text-align:center'>";
@@ -330,6 +332,8 @@
 					html+="</div>";
 					html+="</div>";
 				});
+				//html += '<button type="button" class="btn btn-primary btn-block bi bi-plus mt-3" id="readMore">더보기</button>';
+				
 
 				$('#reviewRow').html(html);
 				
@@ -339,6 +343,17 @@
 			}
 		});
 	}
+	/* 더보기 버튼 */
+	/*$(function(){
+	    $(".ftco-animate").slice(0, 6).show();
+	    $("#readMore").click(function(e){
+	        e.preventDefault();
+	        $(".ftco-animate:hidden").slice(0, 6).show();
+	        if($(".ftco-animate:hidden").length == 0){
+	        	$("#readMore").css('display','none');
+	        }
+	    });
+	});*/
 	</script>
 		
 		

@@ -274,7 +274,7 @@
         			html += "</div><div class='col comntContents align-self-top'>";
         			html += "<div>" + list.comnt.nickname;
         			if("${email}" == list.comnt.email){
-        				html += "<span class='badge text-wrap rounded-pill ml-2 pt-1' style='background-color:#8dc5a6'>작성자</span>";
+        				html += "<span class='badge text-wrap rounded-pill ml-2 pt-1' style='background-color:#a091f3'>작성자</span>";
         			}
         			html += "</div>";
         			html += "<div id='coContent'>" + list.comnt.content + "</div>";
@@ -342,8 +342,7 @@
     			data: roomdata,
     			type: 'POST',
     			success: function (res) {
-    				window.open("/room", '우리동네 돌보미 채팅', 'width=450px,height=475px,scrollbars=yes,location=no');
-    				//window.open("../room", '채팅', 'width=700px,height=800px,scrollbars=yes');
+    				window.open("/room", '우리동네 돌보미 채팅', 'width=450px,height=515px,location=no');
     			},
     			error : function(err){
     			}
@@ -477,17 +476,6 @@
 			</div>
 		</div>
 	</div>
-    <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-          <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span>Market<i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-0 bread">나눔 마켓</h1>
-          </div>
-        </div>
-      </div>
-    </section>
     <section class="ftco-section bg-light">
 	    <div class="container">
 		<!-- share market content -->

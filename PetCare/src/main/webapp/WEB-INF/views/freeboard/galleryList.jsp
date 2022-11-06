@@ -5,9 +5,9 @@
 <head>
 <title>Pet Care</title>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet"
@@ -23,37 +23,30 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
 <script src="/js/jquery.min.js"></script>
 <style>
-#page-title{
+#page-title {
 	padding-bottom:30px;
 }
-.col-sm-6.col-md-4{
+.col-sm-6.col-md-4 {
 	margin-bottom:25px;
-}
-#imgThumnail{
 	display:none;
 }
 .card {
-	margin-bottom:25px;
 	box-shadow: 0 4px 6px 0 rgba(22, 22, 26, 0.18);
 	border-radius: 0;
 	border: 0;
 	transition: transform 0.2s ease;
 }
-
-image{
-	object-fit: cover;
+.card-img.scale {
+  height: 300px;
+  object-fit: cover;
+  
 }
 .card:hover {
    transform: scale(1.05);
    transition: transform 0.3s;
    filter: brightness(0.7);
-}
-.card-img-top {
-	height: 300px;
-	object-fit: cover; 
 }
 #contentTitle {
       display: -webkit-box;
@@ -66,7 +59,6 @@ image{
       -webkit-box-orient:vertical;
       -webkit-line-clamp:1 /* 2줄 이상은 ... 처리 */
  }
-
 /*Content Modal*/
 .modal-body{
 	margin:0;
@@ -92,7 +84,6 @@ image{
 .modal-body#writeModalBody{
 	padding:10px;
 }
-
 #heart{
 	color:#ff2b53;
 }
@@ -102,44 +93,39 @@ image{
 </head>
 <body>
 <%@include file="../header.jsp"%>
-<section class="hero-wrap hero-wrap-2" style="background-image: url();" data-stellar-background-ratio="0.5">
-	<div class="overlay">
-		<div class="container">
-			<div class="row no-gutters slider-text align-items-end">
-				<div class="col-md-9 ftco-animate pb-5">
-					<p class="breadcrumbs mb-2">
-						<span>Gallery<i class="ion-ios-arrow-forward"></i></span>
-					</p>
-					<h1 class="mb-0 bread">갤러리</h1>
-				</div>
-			</div>
+<section class="hero-wrap hero-wrap-2">
+	<div class="container text-center d-flex justify-content-center">
+		<div class="no-gutters align-items-end" style="margin-top:100px; border-bottom:solid 3px #c1b8f2;">
+			<h1 class="mb-0 bread text-dark">갤러리</h1>
+			<p class="breadcrumbs mb-2"><span class="text-dark">Gallery</span></p>
 		</div>
 	</div>
 </section>
+
 <section class="ftco-section">
 	<div class="container">
-		<div class="text-center" id="page-title">
-			<h3>갤러리</h3>
-			<c:choose>
-				<c:when test="${sessionScope.email != null}">
-					<div align="right">
-						<button class="btn btn-primary btn-outline-primary btn-sm" onClick="location.href='/freeboard/galleryMyList'">내가 쓴 게시물</button>
-						<button class="btn btn-primary btn-outline-primary btn-sm" onClick="location.href='/freeboard/galleryWrite'">게시물 작성</button> 
-					</div>
-				</c:when>	
-				<c:otherwise>
-				</c:otherwise>
-			</c:choose>
-		</div>
+		<c:choose>
+			<c:when test="${sessionScope.email != null}">
+				<div align="right">
+					<button class="btn btn-primary btn-outline-primary btn-sm mb-3" onClick="location.href='/freeboard/galleryMyList'">내가 쓴 게시물</button>
+					<button class="btn btn-primary btn-outline-primary btn-sm mb-3" onClick="location.href='/freeboard/galleryWrite'">게시물 작성</button> 
+				</div>
+			</c:when>	
+			<c:otherwise>
+			</c:otherwise>
+		</c:choose>
 		<!--갤러리 썸네일 시작-->
 		<div class="row">
 			<c:choose>
 				<c:when test="${empty galleryList}">
-					<span class="text-align"><h5>데이터가 없습니다</h5></span>
+					<div class="col-12 mt-5 mb-5">
+						<h2 class="bi bi-exclamation-triangle-fill text-center" style="font-size:120px; color:#c1b8f2;"></h2>
+						<h5 class="text-center">등록된 게시물이 없습니다. 첫 게시물을 <a href="/freeboard/galleryWrite" style="color:#a091f3">등록</a>해주세요!</h5>
+					</div>
 				</c:when>
 				<c:otherwise>
 					<c:forEach items="${galleryList}" var="gallery" varStatus="status">
-						<div class="col-sm-6 col-md-4">
+						<div class="col-sm-6 col-md-4" id="imgThumnail">
 							<div class="card text-white">
 								<img src="/freeboard/display?imgNames=${imgNames[status.index]}" class="card-img scale" alt="${imgNames[status.index]}">
 								<div class="card-img-overlay">
@@ -157,10 +143,9 @@ image{
 							</div>	
 						</div>
 					</c:forEach>
+					<button type="button" class="btn btn-primary btn-block bi bi-plus mt-3" id="readMore">더보기</button>
 				</c:otherwise>
 			</c:choose>
-			<button type="button" class="btn btn-outline-primary btn-lg btn-block" id="readMore">
-			<i class="bi bi-plus"></i> 더보기</button>
 			<!--갤러리 썸네일 끝-->
 
 			<!-- Modal 시작 -->
@@ -305,18 +290,12 @@ $("#heart").on("click", function(){
 });
 /* 더보기 버튼 */
 $(function(){
-	//var Hidden = $(".col-sm-6.col-md-4:hidden").val
-    //var Shown = $(".col-sm-6.col-md-4").val
     $(".col-sm-6.col-md-4").slice(0, 9).show();
-    if($(".col-sm-6.col-md-4").length < 9){ 
-    	$("#readMore").remove();
-    }
     $("#readMore").click(function(e){
         e.preventDefault();
-        $(".col-sm-6.col-md-4:hidden").slice(0,9).show();
+        $(".col-sm-6.col-md-4:hidden").slice(0, 9).show();
         if($(".col-sm-6.col-md-4:hidden").length == 0){
-        	$("#readMore").hide();
-        	alert("더 이상 항목이 존재하지 않습니다.");
+        	$("#readMore").css('display','none');
         }
     });
 });

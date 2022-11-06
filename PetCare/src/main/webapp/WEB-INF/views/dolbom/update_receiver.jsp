@@ -101,8 +101,8 @@
    	padding:5% 0 0 0;
    	}
    	.headtitle h3{
-	opacity: .6; /*색상연하게 0.0~1.0*/
-	background: linear-gradient(45deg, #207dff 0%, #00bd55 100%);
+	opacity: .8; /*색상연하게 0.0~1.0*/
+	background: linear-gradient(to bottom right, #97a3ea 20%, #a091f3 60%, #9283f2 90%);
 	color:white;
 	border-radius:5px;
 	padding:0 50px;
@@ -287,7 +287,7 @@
 			    </div>
 				<!-- <div id="tags" name="tags"></div> -->
 				<div class="write-btn" align="center">	
-	               <button type="button" class="btn btn-info btn-lg" id="saveButton" onclick="check();">수정</button>	
+				<button type="button" class="btn text-black rounded-pill px-4 text-white submitMsgBtn" id="saveButton" onClick="check();" style="background-color:#a091f3;border:none;">수정하기</button>
 	            </div>
          	<input type="hidden" id="workstime" value="${dolbom.workstime}">
          	<input type="hidden" id="worketime" value="${dolbom.worketime}">

@@ -46,9 +46,7 @@
     	$("#phone1").val(pnum0).attr("selected", "selected");
     	
     	<c:forEach var="i" items="${profile}">
-    		console.log('ifname: ${i.fname}'); //ok
 			savedImages.push({fname: '${i.fname}', ofname: '${i.ofname}'});
-			console.log('sa: '+Object.values(savedImages[0])); //ok
 		</c:forEach>
 		
 		if(savedImages != null){
@@ -63,7 +61,7 @@
 			imageArr = Array.prototype.slice.call(images);
 			preview(imageArr);
 		});
-		//1. 비밀번호 확인
+		
 		var $resultMsg2 = $('#pwd-check-warn');
 		$('#pwdCheck').keyup(function(){			
 			$resultMsg2.html('비밀번호 확인란에 입력해주세요.');
@@ -91,13 +89,11 @@
 				return;
 			}
 		});
-		//2. 닉네임 체크
-		console.log('#ognn: '+nickname);
+		
 		var $resultMsg3 = $('#nick-check-warn');
 		$('#nickname').keyup(function(){
 			$resultMsg3.html('');
 			newnickname = $('#nickname').val();
-			console.log('#nnn: '+newnickname);
 			if(newnickname != nickname){
 				if(nickname != null){
 					if(15<nickname.length){
@@ -115,7 +111,6 @@
 		    		type: 'post',
 		    		data: {nick: newnickname},
 		    		success: function(data){
-		    			console.log("data: "+data);
 		    			if(data == "T"){
 		    				$resultMsg3.html('중복된 닉네임입니다');
 							$resultMsg3.css('color','red');
@@ -127,16 +122,15 @@
 		    	});
 			}
 		});		
-		// DB에 입력
+		
 		var form1 = $('form#contactForm');
 		$(form1).submit(function(e){
 			e.preventDefault();
-			// 이미지
+			
 			var formData = new FormData();
 			
 			for(var i=0; i<selectedImages.length; i++){
 				if(selectedImages[i] != null){
-					console.log("###se "+selectedImages[i]);
 					formData.append("multipartFiles", selectedImages[i]);
 				}
 				else{
@@ -144,16 +138,14 @@
 				}
 			}
 			for(var i=0, j=0; i<savedImages.length; i++){
-				console.log('실행됨'); //한번만 하는거 맞음
 				if(savedImages[i].ofname == null){
-					console.log("###sa "+savedImages[i].ofname); //근데 여기서 왜 null?
 					formData.append("fnames["+j+"]", savedImages[i].fname);
 					j++;
 				}else{
 					formData.append("fnames[0]", null);
 				}
 			}
-			//필수정보 기입여부 체크
+			
 			if(pwdCheck == null){
 				alert('비밀번호를 기입해주세요');
 				$('#pwd').focus();
@@ -165,7 +157,7 @@
 				$('#nickname').focus();
 				return false;
 			}		
-			//선택정보 유효성 체크			
+				
 			var phone2 = $('#phone2').val();
 			var phone3 = $('#phone3').val();
 			var regExpPhone = /[0-9]*$/;
@@ -185,8 +177,6 @@
 			formData.append("pwd", pwdCheck);
 			formData.append("nickname", nickname);
 			formData.append("phone", phone);
-			console.log("#se: "+formData.get("multipartFiles")); //null
-			console.log("#sa: "+formData.get("fnames[0]")); //null
 			
 			$.ajax({
 				type : 'POST',
@@ -229,7 +219,6 @@
 			selectedImages.splice(i, 1);
 		}else if($(imgObj).attr("class").includes("saved")){
 			delete savedImages[i].ofname;
-			console.log(savedImages[i].ofname);
 		}
 		$(imgObj).remove();
 	}
@@ -238,35 +227,15 @@
   <body>
 	<%@include file="../header.jsp" %>
     
-    <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-          <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span>회원정보수정<i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-0 bread">회원정보 수정</h1>
-          </div>
-        </div>
-      </div>
-    </section>
-    
     <section class="ftco-section bg-light">
     <div class="container">
-    	<div class="row justify-content-center">
-			<div class="col-md-6 text-center mb-5">
-				<h2 class="heading-section">#Update</h2>
-			</div>
-		</div>
 		<div class="row justify-content-center">
 			<div class="col-md-12">
 				<div class="wrapper">
-					<div class="row no-gutters">
-						<div class="col-md-5 d-flex align-items-stretch">
-							<div class="info-wrap w-100 p-5 img" style="background-image: url(images/img.jpg);"></div>
-						</div>
+					<div class="row justify-content-center">
 						<div class="col-md-7">
 							<div class="contact-wrap w-100 p-md-5 p-4">
-								<h3 class="mb-4">Update</h3>
+								<h3 class="mb-4">회원정보수정</h3>
 								<form action="updateM.do" method="POST" id="contactForm" name="contactForm" class="contactForm">
 									<div class="row">
 										<div class="col-md-12">
@@ -352,7 +321,7 @@
 												</div>
 	                    					 </div>
 											<div class="col-md-12">
-												<div class="form-group">
+												<div class="form-group d-flex justify-content-center">
 													<input type="submit" value="Update" class="btn btn-primary">
 													<div class="submitting"></div>
 												</div>

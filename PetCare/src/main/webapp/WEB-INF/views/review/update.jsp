@@ -8,7 +8,6 @@
     <title>Pet Care</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous">
@@ -23,7 +22,6 @@
     <link rel="stylesheet" href="/css/jquery.timepicker.css">
     <link rel="stylesheet" href="/css/flaticon.css">
     <link rel="stylesheet" href="/css/style.css">
-    <!-- 부트스트렙에서 아이콘 끌어올 때 필요한 코드 -->	 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script src="/js/jquery.min.js"></script>
 
@@ -115,7 +113,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 </style>
 </head>
 <body>
-	<section class="ftco-section bg-light">
+	<section class="ftco-section bg-light pt-5">
 		<div class="container">          
             <!-- 돌보미 후기 폼 시작 -->
             <div class="headtitle"><h3>돌보미 후기 수정</h3></div>
@@ -224,6 +222,11 @@ star-input>.input.focus{outline:1px dotted #ddd;}
   			});
 		$("#upload").on("change", function(e){
 			var images = e.target.files;
+			if((images.length+imgNum)>5 || imgNum>=5){
+				alert("사진은 최대 5장까지 업로드가 가능합니다 !");
+				$("#upload").val(null);
+				return false;
+			}
    			imageArr = Array.prototype.slice.call(images);
    			preview(imageArr);
 		});

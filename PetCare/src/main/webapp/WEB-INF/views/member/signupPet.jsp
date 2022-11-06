@@ -62,7 +62,6 @@
     	}
     	
 	    const email = "${sessionScope.member.email}";
-	    console.log("email: "+email);
 	    function submit(){
 	    	var formData = new FormData();
 	    	
@@ -83,11 +82,9 @@
 	    	
 	    	for(var i=0; i<selectedImages.length; i++){
 	    		if(selectedImages[i] != undefined){
-	    			console.log('##mp: '+selectedImages[i]);
 	    			formData.append("multipartFiles", selectedImages[i]);
 	    		}else{
 	    			alert('반려동물의 사진을 등록해야합니다');
-	    			console.log('##mp: '+selectedImages[i]);
 					return false;
 	    		}
 	    	}	    	
@@ -151,13 +148,9 @@
 				data : formData,
 				processData : false,
 				contentType: false,
-				success : function(data){
-					if(data){
-						alert('등록 되었습니다.');
-						location.href="/member/mypage.do?m_seq=${sessionScope.member.m_seq}";
-					}else{
-						alert("등록 에러")
-					}
+				success : function(){
+					alert('등록 되었습니다.');
+					location.href="/member/mypage.do?m_seq=${sessionScope.member.m_seq}";
 				}
 			});	    	
 	    }
@@ -171,35 +164,15 @@
   <body>
 	<%@include file="../header.jsp" %>
     
-    <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-          <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span>Signup Pet<i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-0 bread">반려동물 등록</h1>
-          </div>
-        </div>
-      </div>
-    </section>
-    
     <section class="ftco-section bg-light">
     <div class="container">
-    	<div class="row justify-content-center">
-			<div class="col-md-6 text-center mb-5">
-				<h2 class="heading-section">#Sign Up Pet</h2>
-			</div>
-		</div>
 		<div class="row justify-content-center">
 			<div class="col-md-12">
 				<div class="wrapper">
-					<div class="row no-gutters">
-						<div class="col-md-5 d-flex align-items-stretch">
-							<div class="info-wrap w-100 p-5 img" style="background-image: url(images/img.jpg);"></div>
-						</div>
+					<div class="row justify-content-center">
 						<div class="col-md-7">
 							<div class="contact-wrap w-100 p-md-5 p-4">
-								<h3 class="mb-4">반려동물 정보입력</h3>								
+								<h3 class="mb-4">마이펫 등록</h3>								
 								<div class="row">									
                    					<div class="col-md-12">
 										<div class="input-group">
@@ -260,7 +233,7 @@
 										</div>
                      					</div>
                      					<div class="col-md-12">
-										<div class="form-group">												
+										<div class="form-group d-flex justify-content-center">												
 											<input onClick="submit();" type="button" value="Sign Up" class="btn btn-primary">
 										</div>
 									</div>                      					

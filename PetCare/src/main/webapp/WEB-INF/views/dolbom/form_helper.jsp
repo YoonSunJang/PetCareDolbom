@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="/css/jquery.timepicker.css">
     <link rel="stylesheet" href="/css/flaticon.css">
     <link rel="stylesheet" href="/css/style.css">
-    <!-- 부트스트랩 아이콘 스타일시트 추가-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script type="text/javascript" language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   </head>
@@ -102,7 +101,7 @@
 	font-weight:bold;
 	}
 	.headtitle h3{
-		opacity: .8; /*색상연하게 0.0~1.0*/
+		opacity: .8;
 		background: linear-gradient(to bottom right, #97a3ea 20%, #a091f3 60%, #9283f2 90%) no-repeat;
 		color:white;
 		border-radius:5px;	
@@ -113,7 +112,7 @@
   </style>
 <body>
 <%@include file="../header.jsp" %>   
-    <section class="ftco-section bg-light">
+    <section class="bg-light">
 		<div class="container">          
             <!-- 돌보미가 될게요 폼 시작 -->
             <div class="headtitle"><h3>돌보미가 될게요</h3></div>
@@ -339,7 +338,7 @@
 					 if(data.bigcare != null){
 				     html += "#"+data.bigcare;
 					 }					 
-					 $("#tags").html(html);
+					 //$("#tags").html(html);
 				 }
 			 });
 		 }

@@ -34,8 +34,6 @@
 				dataType:'json',
 				contentType: "application/json; charset=utf-8",
 				success: function(data){
-					alert(data.mydong);
-					//console.log
 					var nearlist=data.nearlist.split(',');
 					nearlist[0]=nearlist[0].replace('[','');
 					nearlist[nearlist.length-1]=nearlist[nearlist.length-1].replace(']','');
@@ -203,7 +201,6 @@
 				type: "GET",
 				data:{range:range},
 				success: function(result){
-					alert("범위변경성공");
 					drawMap(Number(range),result.lat,result.lon);
 					setRangeDiv(range);
 					setNearList(result.nearlist);
@@ -216,7 +213,6 @@
 					url: "../addressCancel.json",
 					type: "GET",
 					success: function(data){
-						alert("취소성공!");
 						$("#mydong").empty();
 						var html="";
 						html += '<a href="#">아직 등록된 동네가 없어요</a>';
@@ -311,21 +307,18 @@
   </head>
 <body>
 <%@include file="header.jsp" %>
-	<section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-          <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span>Address Setting<i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-0 bread">동네 설정</h1>
-          </div>
+	<section class="hero-wrap hero-wrap-2">
+      <div class="container text-center d-flex justify-content-center">
+        <div class="no-gutters align-items-end" style="margin-top:100px; border-bottom:solid 3px #c1b8f2;">
+      		<h1 class="mb-0 bread text-dark">동네설정</h1>
+      		<p class="breadcrumbs mb-2"><span class="text-dark">Setting Address</span></p>
         </div>
       </div>
-    </section>
+	</section>
     <section class="ftco-section ftco-no-pt ftco-no-pb">
     	<div class="container">
 	    	<div class="row" id="settingAddrRow">
-		    	<div class="col-md-6 bg-white shadow">
+		    	<div class="col-md-6 bg-white shadow my-5">
 		    		<div class="inputAddr" id="content">
 			    		<h5>동네 설정</h5>
 						<input id=roadFullAddr type="text" class="form-control" placeholder="내 동네 이름(동,읍,면)으로 검색">
@@ -336,7 +329,7 @@
 		    		<div id="map" class="block-21 d-flex mb-4">
 					</div>
 		    	</div>
-		    	<div class="col-md-6 bg-white shadow">
+		    	<div class="col-md-6 bg-white shadow my-5">
 		    		<div class="myAddr" id="content">
 		    			<h5>내가 설정한 동네</h5>		
 						<div id="mydong">

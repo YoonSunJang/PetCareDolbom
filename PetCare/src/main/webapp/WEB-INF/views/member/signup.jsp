@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/css/jquery.timepicker.css">
     <link rel="stylesheet" href="/css/flaticon.css">
     <link rel="stylesheet" href="/css/style.css">
-    <!-- 부트스트랩 아이콘 스타일시트 추가-->
+    
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 	<style>
 	section {
@@ -46,18 +46,18 @@
 	    var selectedImages = [];
 		var imgNum = 0;
 	    $(function(){
-	    	// 0.이미지 추가 로직 세팅
+	    	
 	    	$("#userphoto").on("change", function(e){
 				$("#imageList").empty();
 				var images = e.target.files;
-				imageArr = Array.prototype.slice.call(images); //한장만 다룰거면 array아니여도 됨
+				imageArr = Array.prototype.slice.call(images); 
 				preview(imageArr);
 			});
-	    	//1.이메일 체킹
+	    	
 	    	var $resultMsg1 = $('#mail-check-warn');
 	    	$('#userEmail1').focus();
 	    	$('#mail-Check-Btn').click(function() {
-	    		var regExpEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*$/; //숫자,영대소,-_. 만 입력가능
+	    		var regExpEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*$/;
 		    	email = $('#userEmail1').val();
 		    	if(email == ''){
 		    		alert('이메일을 입력해주세요.');
@@ -66,19 +66,18 @@
 		    		alert('이메일은 영어와 숫자로만 이루어져있습니다.');
 		    		return false;
 		    	}
-		    	email += "@"+$('#userEmail2').val();
+		    	email += $('#userEmail2').val();
 		    	$.ajax({
 		    		url: 'emailCheck.do',
 		    		type: 'post',
 		    		data: {email: email},
 		    		async: false,
 		    		success: function(data){
-		    			console.log("data: "+data);
 		    			if(data == "T"){
 		    				$resultMsg1.html('중복된 이메일입니다');
 							$resultMsg1.css('color','red');
 							return false;
-		    			}else{ //1.1 인증메일 보내기
+		    			}else{ 
 		    				var checkInput = $('.mail-check-input'); 
 		    				alert('인증번호가 전송되었습니다.');
 		    				$resultMsg1.html('인증메일 가는중...');
@@ -88,7 +87,6 @@
 		    					type : 'get',
 		    					url :  '<c:url value ="/member/mailCheck?email="/>'+email,
 		    					success : function (data) {
-		    						console.log("data : " +  data);
 		    						checkInput.attr('disabled',false);
 		    						code = data;
 		    						$('#mail-check-input').focus();
@@ -100,7 +98,7 @@
 		    		}	    		
 		    	});
 	    	});
-		 	//1.2 인증번호 비교		
+		 		
 			$('#mail-check-input').keyup(function(){	
 				inputCode = $('#mail-check-input').val();
 				if(inputCode.length === 6){
@@ -118,7 +116,7 @@
 					}
 				}
 			});
-			//2. 비밀번호 확인
+			
 			var $resultMsg2 = $('#pwd-check-warn');
 			$('#pwdCheck').keyup(function(){			
 				$resultMsg2.html('비밀번호 확인란에 입력해주세요 →');
@@ -147,7 +145,7 @@
 					return false;
 				}
 			});
-			//3. 닉네임 체크
+			
 			var $resultMsg3 = $('#nick-check-warn');
 			$('#nickname').keyup(function(){
 				$resultMsg3.html('');
@@ -192,7 +190,7 @@
 					reader.readAsDataURL(i);
 				}else{}
 			});
-			$("#userphoto").val(""); //초기화가 되어야 이미지 재등록이 가능한듯
+			$("#userphoto").val(""); 
 		}
 	    function uploadClick(){
 			$("#userphoto").click();
@@ -201,9 +199,9 @@
 			selectedImages.splice(i,1);
 			$(imgObj).remove();
 		}
-		// DB에 입력
+		
 		function submit(){
-			//이미지
+			
 			var formdata = new FormData();
 			
 			for(var i=0; i<selectedImages.length; i++){
@@ -211,7 +209,7 @@
 	    			formdata.append("multipartFiles", selectedImages[i]);
 	    		}
 	    	}
-			//필수정보 기입여부 체크
+			
 			if(inputCode == null){
 				alert('이메일 인증을 받아야합니다');
 				$('#userEmail1').focus();
@@ -233,7 +231,7 @@
 				$('#agree').focus();
 				return false;
 			}			
-			//선택정보 유효성 체크			
+						
 			var phone2 = $('#phone2').val();
 			var phone3 = $('#phone3').val();
 			var regExpPhone = /[0-9]*$/;
@@ -249,8 +247,7 @@
 					alert('전화번호에는 숫자만 써주세요');
 					return false;	
 				}
-			}else{
-				//phone = "";
+			}else{				
 				alert('전화번호를 입력해주세요');
 				return false;
 			}						
@@ -315,7 +312,7 @@
 						<div class="row justify-content-center">
 							<div class="col-md-6">
 								<div class="contact-wrap w-100 p-md-5 p-4 shadow rounded">
-									<h3 class="mb-4">회원가입</h3>								
+									<h3 class="mb-4">#회원가입</h3>								
 									<div class="row">
 										<div class="col-md-12">
 											<label class="bi bi-check"><small>표시는 필수정보 입력입니다. 필수정보는 모두 작성해주세요.</small></label>
@@ -347,8 +344,7 @@
 												</div>
 												<span id="mail-check-warn"></span>
 											</div>
-										</div>
-										<span id="pwd-check-warn"></span>
+										</div>										
 										<div class='col-md-12'>
 											<div class='row'>
 												<div class="col-md-12">
@@ -357,13 +353,15 @@
 														<input type="password" class="form-control mr-2" name="pwd" id="pwd" placeholder="Password">
 														<input type="password" class="form-control" name="pwdCheck" id="pwdCheck" placeholder="Password Check">
 													</div>
+													<span id="pwd-check-warn"></span>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="label bi bi-check" for="subject">NICKNAME</label> 
 														<input type="text" class="form-control" name="nickname" id="nickname" placeholder="Nickname">
 													</div>
-													</div>
+													<div><span id="nick-check-warn"></span></div>
+												</div>
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="label bi bi-check" for="subject">NAME</label> 
@@ -394,7 +392,7 @@
 														<input type="radio" class="mr-2" name="agree" value="N">
 													</div>
 												</div>
-										 		<div><span id="nick-check-warn"></span></div>
+										 		
 											</div>
 											<div class="row">
 												<div class="col-md-6"></div>
@@ -424,7 +422,7 @@
 												</div>
 												<div class="col-md-12">
 													<div class="form-group d-flex justify-content-center">
-														<input onClick="submit();" type="button" value="Sign Up" class="btn btn-primary"> 
+														<input onClick="submit();" type="button" value="Sign Up" class="btn btn-primary float-right"> 
 													</div>
 												</div>
 											</div>

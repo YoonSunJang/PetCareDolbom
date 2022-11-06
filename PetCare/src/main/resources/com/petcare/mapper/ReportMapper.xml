@@ -5,7 +5,7 @@
   
  <mapper namespace="com.petcare.mapper.ReportMapper"> 
   	<select id="list" resultType="Report">
-	    select * from REPORT order by REP_SEQ desc
+	    select * from REPORT order by length(rep_seq) desc, REP_SEQ desc
 	</select>
 	<insert id="insert" parameterType="Report">
 		insert into REPORT values(report_seq.nextval, #{rep_content}, #{rep_remail}, #{rep_wemail}, #{rep_reason}, #{rep_wseq}, #{rep_state}, default, default)
@@ -20,14 +20,14 @@
 		select * from REPORT where REP_SEQ=#{rep_seq}
 	</select>
 	<select id="listsearch" resultType="Report">
-		select * from REPORT where #{category}='%'||#{keyword}||'%' order by REP_SEQ desc
+		select * from REPORT where #{category}='%'||#{keyword}||'%' order by length(REP_SEQ) desc, REP_SEQ desc
 	</select>
 	<select id="selectCount" resultType="long">
 		select nvl(max(ROWNUM),0) from REPORT
 	</select>
 	<select id="selectPerPage" resultType="Report" parameterType="ReportVo">
 	<![CDATA[
-	select * from (select ROWNUM rnum, aa. * from (select * from Report order by rep_seq desc) aa)
+	select * from (select ROWNUM rnum, aa. * from (select * from Report order by length(rep_seq) desc, rep_seq desc) aa)
 	where rnum>#{startRow} and rnum<=#{endRow}
 	]]>
 	</select>
@@ -36,7 +36,7 @@
 	</select>
 	<select id="selectPerPageBySearch" resultType="Report" parameterType="ReportVo">
 	     <![CDATA[
-	     select * from (select ROWNUM rnum, aa.* from (select * from Report where upper(${catgo}) like upper('%'||#{keyword}||'%') and REP_STATE like '%'||#{rep_state}||'%' order by rep_seq desc, ${catgo} desc) aa)
+	     select * from (select ROWNUM rnum, aa.* from (select * from Report where upper(${catgo}) like upper('%'||#{keyword}||'%') and REP_STATE like '%'||#{rep_state}||'%' order by length(rep_seq) desc, rep_seq desc, ${catgo} desc) aa)
 	     where rnum>#{startRow} and rnum<=#{endRow}
 	     ]]>
 	</select>

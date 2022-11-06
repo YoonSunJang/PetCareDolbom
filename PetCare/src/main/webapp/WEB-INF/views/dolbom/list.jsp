@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="/css/jquery.timepicker.css">
     <link rel="stylesheet" href="/css/flaticon.css">
     <link rel="stylesheet" href="/css/style.css">
-    <!-- 부트스트랩 아이콘 스타일시트 추가-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script type="text/javascript" language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     
@@ -55,11 +54,19 @@
   </head>
 <body>
 <%@include file="../header.jsp" %>
-    <section class="ftco-section bg-light">
+	<section class="hero-wrap hero-wrap-2">
+      <div class="container text-center d-flex justify-content-center">
+        <div class="no-gutters align-items-end" style="margin-top:100px; border-bottom:solid 3px #c1b8f2;">
+      		<h1 class="mb-0 bread text-dark">돌보미 리스트</h1>
+      		<p class="breadcrumbs mb-2"><span class="text-dark">Dolbom List</span></p>
+        </div>
+      </div>
+    </section>
+    <section class="ftco-section pt-0">
     	<div class="container">
     		<div class="dolbomTable">
 	            <table class="table table-hover">
-	               	<thead style="background: linear-gradient(45deg, #207dff 0%, #00bd55 100%);opacity:0.5;color:white;">
+	               	<thead style="background: linear-gradient(to bottom right, #97a3ea 20%, #a091f3 60%, #9283f2 90%) no-repeat;opacity:0.8;color:white;">
 		               	<tr>
 		               		<th>수신/발신</th>
 		               		<th>요청자</th>
@@ -119,26 +126,26 @@
 					  
 					  if(data[i].state == "대기중"){
 						  if(data[i].receiveremail==email){
-							  html += '<td><button type="submit" class="btn btn-danger btn-sm" id="yes" onclick="acceptList('+data[i].dl_seq+')">수락</button>';
-							  html += '<button type="submit" class="btn btn-secondary btn-sm" id="no" onclick="deleteList('+data[i].dl_seq+')">거절</button>';
+							  html += '<td><button type="submit" class="btn text-black rounded-pill px-3 text-white" id="yes" onclick="acceptList('+data[i].dl_seq+')" style="background-color:#a091f3;border:none;">수락</button>';
+							  html += '<button type="submit" class="btn btn-light rounded-pill px-3 text-secondary" id="no" onclick="deleteList('+data[i].dl_seq+')" style="border:none;">거절</button>';
 						  }else{
-							  html += '<td><button type="submit" class="btn btn-secondary btn-sm">수락대기중</button>';
+							  html += '<td><button type="submit" class="btn btn-light rounded-pill px-3 text-secondary" style="border:none;">수락대기중</button>';
 						  }	  
 					  }else if(data[i].state == "진행중"){
 						  if(data[i].requester==email){
-							  html += '<td><button type="submit" class="btn btn-info btn-lg" id="finishid" onclick="finishList('+data[i].dl_seq+',this.id)" style="background-color:#F34A4A;">완료</button>';
+							  html += '<td><button type="submit" class="btn text-black rounded-pill px-3 text-white" id="finishid" onclick="finishList('+data[i].dl_seq+',this.id)" style="background-color:#a091f3;border:none;">완료</button>';
 							  }
 						  else{
-							  html += '<td><button type="submit" class="btn btn-secondary btn-sm">진행중</button>';
+							  html += '<td><button type="submit" class="btn btn-light rounded-pill px-3 text-secondary" style="border:none;">진행중</button>';
 						  }
 					}else if(data[i].state == "완료"){
 						if(data[i].requester==email){
-							html += '<td><button type="submit" class="btn btn-info btn-lg" onclick="writeComt('+data[i].dl_seq+')" style="background-color:#0D539D;">후기작성</button>';
+							html += '<td><button type="submit" class="btn text-black rounded-pill px-3 text-white" onclick="writeComt('+data[i].dl_seq+')" style="background-color:#98c9fa;border:none;">후기작성</button>';
 						}else{
-							html += '<td><button type="submit" class="btn btn-info btn-lg" style="background-color:#0D539D;">완료</button>';
+							html += '<td><button type="submit" class="btn btn-light rounded-pill px-3 text-secondary" style="border:none;">완료</button>';
 						}
 					}else if(data[i].state == "후기등록"){
-						html += '<td><button type="submit" class="btn btn-info btn-lg" onclick="showReview('+data[i].dl_seq+')" style="background-color:#0D539D;">후기보기</button>';
+						html += '<td><button type="submit" class="btn text-black rounded-pill px-3 text-white" onclick="showReview('+data[i].dl_seq+')" style="background-color:#98c9fa;border:none;">후기보기</button>';
 					}
 					  html += '</td>';
 					  //html += '<td><a href="javascript:goChatting(\''+data[i].sendernick+'\',\''+data[i].receivernick+'\',\''+data[i].workdate+'\'/\''+data[i].kind+'\');"><i class="bi bi-chat-dots"></i></a></td>';
@@ -172,8 +179,7 @@
 			data: {dl_seq:dl_seq},
 			success: function(data){
 				alert("수락할까요?");
-				resetDList();
-				//resetReceive();		
+				resetDList();	
 			}
 		});
 
@@ -185,8 +191,6 @@
 			type: "GET",
 			data: {dl_seq:dl_seq},
 			success: function(data){
-				alert("거절할까요?/거절사유");
-				//resetReceive();	
 				resetDList();
 			}
 		});
@@ -199,8 +203,6 @@
 			data: {dl_seq:dl_seq},
 			success: function(data){
 				alert("돌봄을 완료할까요?");
-				//resetReceive();
-				//resetSend();
 				resetDList();
 				
 			}

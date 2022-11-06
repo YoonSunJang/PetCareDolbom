@@ -60,13 +60,12 @@
     	<div class="container">
     		<div class="reviewTable">
 	            <table class="table table-hover">
-	               	<thead style="background: linear-gradient(45deg, #207dff 0%, #00bd55 100%);opacity:0.5;color:white;">
+	               	<thead style="background: linear-gradient(to bottom right, #97a3ea 20%, #a091f3 60%, #9283f2 90%) no-repeat; opacity:0.8;color:white;">
 		               	<tr>
 		               		<th>돌보미</th>
 		               		<th>돌봄시간</th>
 		               		<th>돌봄유형</th>
-		               		<th>상태</th>
-		               		<th>후기등록/보기</th>
+		               		<th>등록/보기</th>
 		               	</tr>
 	               	</thead>
 	               	<tbody id="reviewTbody">
@@ -78,7 +77,6 @@
 		               		<td>${review.nickname}</td>
 		               		<td>${review.workdate}</td>
 		               		<td>${review.kind}</td>
-		               		<td>${review.state}</td>
 		               		<c:choose>
 			               		<c:when test="${review.state ne '후기등록'}">
 			               			<td><a href="/review/write.do?dl_seq=${review.dl_seq}">후기 등록 ></a></td>

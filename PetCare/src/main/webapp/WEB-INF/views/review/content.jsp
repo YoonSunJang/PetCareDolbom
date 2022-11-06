@@ -19,6 +19,17 @@
 <link rel="stylesheet" href="/css/style.css">
 <script src="/js/jquery.min.js"></script>
 <style>
+.rating .star {
+	width: 0;
+	overflow: hidden;
+}
+.rating .star-wrap {
+	width: 18px;
+	display: inline-block;
+}
+.bi-star-fill {
+	color: red;
+}
 .carousel {
 	margin-top: 1rem;    		
 	margin-bottom: 1.4rem;    		   		
@@ -42,39 +53,10 @@
 </head>
 <body>
 <%@include file="../header.jsp"%>
-
-<section class="hero-wrap hero-wrap-2"
-	style="background-image: url('/images/bg_2.jpg');"
-	data-stellar-background-ratio="0.5">
-	<div class="overlay"></div>
-	<div class="container">
-		<div class="row no-gutters slider-text align-items-end">
-			<div class="col-md-9 ftco-animate pb-5">
-				<p class="breadcrumbs mb-2">
-					<span class="mr-2"><a href="index.html">Home <i
-							class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a
-						href="blog.html">Blog <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog
-						Single <i class="ion-ios-arrow-forward"> </i>
-					</span>
-				</p>
-				<h1 class="mb-0 bread">돌보미 후기</h1>
-			</div>
-		</div>
-	</div>
-</section>
-
 <section class="ftco-section ftco-degree-bg">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 ftco-animate">
-				<!-- 
-				<p>
-				<c:forEach var="imgName" varStatus="status" items="${imgNames}">
-					<img src="/review/display?imgName=${imgName.fname}" class="img-fluid">
-					<!-- <img src="/images/image_1.jpg" alt="이미지 못 띄움" class="img-fluid">
-				</c:forEach>				
-				</p>
-				 -->
 				<!-- ------------------------------------------------------------------------------------------------------------------ -->
 					<c:if test="${!empty imgNames}">
 					<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -110,7 +92,18 @@
 					</c:if>
 					<!-- ------------------------------------------------------------------------------------------------------------------ -->
 				<div class="row bg-white shadow p-2 m-1">
-					<h3 class="mb-3 border-bottom">${carereview.writer}님의 후기</h3>
+					<div class="d-flex justify-content-between border-bottom mb-3">
+						<h3> ${carereview.writer}님의 후기</h3>
+						<div class="review" style="text-align:center">
+							<div class="rating" data-rate="${carereview.star}">									  
+							      <div class='star-wrap'><div class="star"><i class="bi bi-star-fill"></i></div></div>
+							      <div class='star-wrap'><div class="star"><i class="bi bi-star-fill"></i></div></div>
+							      <div class='star-wrap'><div class="star"><i class="bi bi-star-fill"></i></div></div>
+							      <div class='star-wrap'><div class="star"><i class="bi bi-star-fill"></i></div></div>
+							      <div class='star-wrap'><div class="star"><i class="bi bi-star-fill"></i></div></div>
+							</div>
+						</div>
+					</div>
 					<!-- <h3 class="mb-3">돌보미: ${carereview.dolbomy}</h3> -->
 					<h5>${carereview.content}</h5>
 					<h2 class="mb-3 mt-5"></h2>
@@ -127,6 +120,26 @@
 	</div>
 </section>
 <script>
+$(function(){
+    var rating = $('.rating');
+    
+    rating.each(function(){
+       var $this = $(this);
+       var targetScore = $this.attr('data-rate');
+       var firstdigit = targetScore.split('.');
+       console.log(firstdigit);
+       if(firstdigit.length>1){
+          for(var i=0;i<firstdigit[0];i++){
+             $this.find('.star').eq(i).css({width:'100%'});
+          }
+          $this.find('.star').eq(firstdigit[0]).css({width:firstdigit[1]+'0%'});
+       }else{
+          for(var i=0;i<targetScore;i++){
+             $this.find('.star').eq(i).css({width:'100%'});
+          }
+       }
+    });
+ });
 $(".delete").click(function(){
     if(confirm("삭제할까요?") == true){
     	location.href='del.do?cr_seq='+"${carereview.cr_seq}";

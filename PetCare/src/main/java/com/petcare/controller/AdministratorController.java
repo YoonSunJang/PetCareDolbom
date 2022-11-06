@@ -32,11 +32,7 @@ public class AdministratorController {
 	private MemberService memberservice;
 	private InfoService infoservice;
 	private ReportService reportservice;
-//	@GetMapping("/admin.do")
-//	public ModelAndView main() {
-//		ModelAndView mv = new ModelAndView();
-//		return mv;
-//	}
+	
 	@GetMapping("/main.do")
 	public ModelAndView main() {
 		List<Info> listinfo = new ArrayList<Info>();
@@ -46,9 +42,13 @@ public class AdministratorController {
 		listinfo = infoservice.listS();
 		listmember = memberservice.userlistS();
 		listreport = reportservice.listS();
-		log.info("##listinfo: "+listinfo);
 		mv.addObject("listinfo",listinfo);
 		mv.addObject("listmember",listmember);
+		for(int i=0;i<listmember.size();i++) {
+	         if(listmember.get(i).getM_seq().contains("ADMIN")) {
+	            listmember.remove(i);
+	         }
+		}
 		mv.addObject("listreport",listreport);
 		return mv;
 	}
@@ -58,7 +58,6 @@ public class AdministratorController {
 		Member member = new Member();
 		member = memberservice.getMyinfoS(m_seq);
 		ModelAndView mv = new ModelAndView("administrator/useroperating","member",member);
-		log.info(member);
 		return mv;
 	}
 	@GetMapping("/userlist.do")
@@ -123,7 +122,11 @@ public class AdministratorController {
 		}
 		memberVo.setRange(cp);
 		ModelAndView mv = new ModelAndView("administrator/userlist", "memberVo", memberVo);
-		log.info(memberVo);
+		for(int i=0;i<memberVo.getList().size();i++) {
+	         if(memberVo.getList().get(i).getM_seq().contains("ADMIN")) {
+	            memberVo.getList().remove(i);
+	         }
+		}
 		if(memberVo.getList().size() == 0) {
 			if(cp>1) {
 				return new ModelAndView("redirect:list.do?usercp="+(cp-1));
@@ -153,7 +156,6 @@ public class AdministratorController {
 		Member member = new Member();
 		member = memberservice.userbyemailS(email);
 		ModelAndView mv = new ModelAndView("administrator/useroperating","member",member);
-		log.info(member);
 		return mv;
 	}
 	@GetMapping("/delete.do")

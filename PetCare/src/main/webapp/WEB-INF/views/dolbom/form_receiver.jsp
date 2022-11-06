@@ -16,8 +16,6 @@
     <link rel="stylesheet" href="/css/jquery.timepicker.css">
     <link rel="stylesheet" href="/css/flaticon.css">
     <link rel="stylesheet" href="/css/style.css">
-    
-    <!-- 부트스트랩 아이콘 스타일시트 추가-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
    <script type="text/javascript" language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
    <style>
@@ -118,7 +116,7 @@
   </head>
 <body>
 <%@include file="../header.jsp" %>
-    <section class="ftco-section bg-light">
+    <section class="bg-light">
 		<div class="container">
 		<div class="headtitle"><h3>돌봄 요청하기</h3></div>
 			<div class="rounded shadow bg-white p-5">	

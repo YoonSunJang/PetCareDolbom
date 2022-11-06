@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,70 +24,107 @@
 
     <link rel="stylesheet" href="/css/flaticon.css">
     <link rel="stylesheet" href="/css/style.css">
-
+	
+	<style>
+/* 	.operating{ */
+/* 		width:100%; */
+/* 		text-align:left; */
+/* 		margin:auto; */
+/* 	} */
+	.operating{
+		display:flex;
+		flex-direction:row;
+		flex-wrap:wrap;
+		margin-bottom:1rem;
+	}
+	input[type="text"]{
+		width:100%;
+		border:none;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	}
+	.updatebtn{
+		text-align:center;
+	}
+	.label {
+	    color: #a091f3 !important;
+	    text-transform: uppercase;
+	    font-size: 12px;
+	    font-weight: 600;
+	}
+	.col-md-6{
+		margin-bottom:1rem;
+	}
+	.btn{
+		border: 1px solid #dee2e6;
+	}
+	.btn:hover{
+		filter:brightness(0.9) !important;
+    	border: 1px solid #dee2e6;
+	}
+	</style>
   </head>
   <body>
 <%@include file="../header.jsp" %>
-    
-    <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-          <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span>Operation <i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-0 bread">관리</h1>
-          </div>
-        </div>
-      </div>
-    </section>
+
 <section class="ftco-section bg-light">
-    <div class="container">
-    <form method="post" name="input" action="update.do">
-		<table>
-			<tr>
-				<td><input type="hidden" id="m_seq" name="m_seq" value="${member.m_seq}">
-				</td>
-			</tr>
-			<tr>
-				<td>성별</td>
-				<td>${member.gender}</td>
-			</tr>
-			<tr>
-				<td>이메일</td>
-				<td><input type="text" id="email" name="email" value="${member.email}"></td>
-			</tr>
-			<tr>
-				<td>비밀번호</td>
-				<td><input type="text" id="pwd" name="pwd" value="${member.pwd}"></td>
-			</tr>
-			<tr>
-				<td>닉네임</td>
-				<td><input type="text" id="nickname" name="nickname" value="${member.nickname}"></td>
-			</tr>
-			<tr>
-				<td>전화번호</td>
-				<td><input type="text" id="phone" name="phone" value="${member.phone}"></td>
-			</tr>
-			<tr>
-				<td>주소</td>
-				<td><input type="text" id="addr" name="addr" value="${member.addr}"></td>
-			</tr>
-			<tr>
-				<td>가입일</td>
-				<td>${member.joindate}</td>
-			</tr>
-			<tr>
-				<td>만족도</td>
-				<td><input type="text" id="sat" name="sat" value="${member.sat}"></td>
-			</tr>
-		</table>
-		<div class="updatebtn">
-			<button type="submit" class="btn btn-info btn-lg">수정</button>
-			<input type="button" class="btn btn-info btn-lg" value="회원탈퇴" onClick="location.href='/admin/delete.do?m_seq=${member.m_seq}'">
-			<input type="button" class="btn btn-info btn-lg" value="목록으로" onClick="location.href='/admin/userlist.do'">
-		</div>
+<c:if test="${fn:contains(sessionScope.member.m_seq,'ADMIN') }">
+    <div class="container bg-white shadow py-3 px-5">
+    	<form method="post" name="input" action="update.do">
+    		<input type="hidden" id="m_seq" name="m_seq" value="${member.m_seq}">
+			<div class="operating col-md-12">
+				<div class="operating col-md-12">
+					<h3>회원관리</h3>
+				</div>
+				<div class="col-md-6">
+					<label class="label" for="name">NAME</label>
+					<div class="input-group"><input type="text" class="form-control" name="name" id="name" value="${member.name}"></div>
+				</div>
+				<div class="col-md-6">
+					<label class="label" for="gender">GENDER</label>
+					<div class="input-group">
+						<c:choose>
+							<c:when test="${member.gender eq 'W'}">
+								<input type="text" class="form-control" name="gender" id="gender" value="여성" disabled>
+							</c:when>
+							<c:otherwise>
+								<input type="text" class="form-control" name="gender" id="gender" value="남성" disabled>
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label class="label" for="email">EMAIL</label>
+					<div class="input-group"><input type="text" class="form-control" name="email" id="email" value="${member.email}"></div>
+				</div>
+				<div class="col-md-6">
+					<label class="label" for="nickname">NICKNAME</label>
+					<div class="input-group"><input type="text" class="form-control" name="nickname" id="nickname" value="${member.nickname}"></div>
+				</div>
+				<div class="col-md-6">
+					<label class="label" for="phone">PHONE</label>
+					<div class="input-group"><input type="text" class="form-control" name="phone" id="phone" value="${member.phone}"></div>
+				</div>
+				<div class="col-md-6">
+					<label class="label" for="addr">ADDRESS</label>
+					<div class="input-group"><input type="text" class="form-control" name="addr" id="addr" value="${member.addr}"></div>
+				</div>
+				<div class="col-md-6">
+					<label class="label" for="joindate">가입일</label>
+					<div class="input-group"><input type="text" class="form-control" name="joindate" id="joindate" value="${member.joindate}" disabled></div>
+				</div>
+				<div class="col-md-6">
+					<label class="label" for="sat">만족도</label>
+					<div class="input-group"><input type="text" class="form-control" name="sat" id="sat" value="${member.sat}"></div>
+				</div>
+			</div>
+			<div class="updatebtn">
+				<button type="submit" class="btn text-black rounded-pill px-4 text-white" style="background-color:#a091f3">수정</button>
+				<input type="button" class="btn text-black rounded-pill px-4 text-white" style="background-color:#a091f3" value="회원탈퇴" onClick="location.href='/admin/delete.do?m_seq=${member.m_seq}'">
+				<input type="button" class="btn btn-light rounded-pill px-4 text-secondary" value="목록" onClick="location.href='/admin/userlist.do'">
+			</div>
 		</form>
 	</div>
+	</c:if>
 </section>
 <%@include file="../footer.jsp" %>
 
@@ -111,6 +149,16 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="/js/google-map.js"></script>
   <script src="/js/main.js"></script>
+  
+  <script>
+  $(document).ready(function(){
+		var m_seq = "${sessionScope.member.m_seq}";
+		if(!m_seq.includes("ADMIN")){
+			alert("관리자만 볼 수 있습니다.");
+			location.href="/";
+		}
+	});
+  </script>
   
 </body>
 </html>

@@ -58,8 +58,7 @@ public class AddressController {
 		String email = (String)session.getAttribute("email");		
 	    Double lat = y;
 	    Double lon = x;
-	    String apiUrl = "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=" + lon + "&y=" + lat;
-	    //String address="";	    
+	    String apiUrl = "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=" + lon + "&y=" + lat;	    
 	    if(addr=="") {
 		    try {
 		    	addr = getRegionAddress(getJSONData(apiUrl));
@@ -67,7 +66,7 @@ public class AddressController {
 		        e.printStackTrace();
 		    }
 	    }
-	    addr = addr.substring(addr.indexOf(" ")+1);//00±¸ 00µ¿
+	    addr = addr.substring(addr.indexOf(" ")+1);
 	    Double range=2.0;
 	    MyDong mydong = new MyDong();
 	    mydong.setUseremail(email);
@@ -89,7 +88,6 @@ public class AddressController {
 	    }
 		String mydongname = addressservice.selectMydong(email);
 		nearlist = addressservice.selectNeardong(email);
-		//mydongname = "{\"mydong\":\""+mydongname+"\"}";
 		String jsonStr = "{\"mydong\":\""+mydongname+"\",\"nearlist\":\""+nearlist+"\",\"lat\":\""+lat+"\",\"lon\":\""+lon+"\"}";
 		JSONParser parser = new JSONParser();
 		JSONObject jsonObject = (JSONObject) parser.parse(jsonStr);//throws ParseException
@@ -113,7 +111,6 @@ public class AddressController {
 		JSONObject jObj = (JSONObject) JSONValue.parse(jsonString);
         JSONObject meta = (JSONObject) jObj.get("meta");
         long size = (long) meta.get("total_count");
-        log.info("@@size"+size);
         String addressName="";
         String addressName2="";
         if(size>0){
@@ -133,8 +130,7 @@ public class AddressController {
 	public ModelAndView checkMyDong(HttpSession session) {
 		String email = (String)session.getAttribute("email");
 		String mydongname = addressservice.selectMydong(email);
-		List<String> nearlist = addressservice.selectNeardong(email);
-		
+		List<String> nearlist = addressservice.selectNeardong(email);		
 		MyDong mydong = addressservice.findMydong(email);
 		int totNeardong = addressservice.countNeardong(email);
 		ModelAndView mv = new ModelAndView();
@@ -185,7 +181,6 @@ public class AddressController {
 	    	addressservice.setting2ndNearDong(neardong);
 	    }	
 		nearlist=addressservice.selectNeardong(email);
-		log.info("@@range"+range);
 		HashMap<String,Object> result = new HashMap<String,Object>();
 		result.put("nearlist", nearlist);
 		result.put("lat", mydong.getY());

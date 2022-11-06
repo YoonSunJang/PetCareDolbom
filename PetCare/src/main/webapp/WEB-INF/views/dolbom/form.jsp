@@ -19,16 +19,20 @@
     <script type="text/javascript" language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   </head>
   <style>
-  	section{
-		margin-top:10%;
-	}
 	.px-4{
 	padding:1.5rem;
 	}
   </style>
 <body>
 <%@include file="../header.jsp" %>
-			
+	<section class="hero-wrap hero-wrap-2 bg-light">
+      <div class="container text-center d-flex justify-content-center">
+        <div class="no-gutters align-items-end" style="margin-top:100px; border-bottom:solid 3px #c1b8f2;">
+      		<h1 class="mb-0 bread text-dark">돌보미 신청</h1>
+      		<p class="breadcrumbs mb-2"><span class="text-dark">Apply Dolbom</span></p>
+        </div>
+      </div>
+    </section>	
 	<section class="ftco-section bg-light">
     	<div class="container">
     		<div class="row mb-5 pb-5">

@@ -39,7 +39,7 @@
 	</select>
 	<select id="selectPerPageBySearch" resultType="Info" parameterType="InfoVo">
 		<![CDATA[
-		select * from (select ROWNUM rnum, aa.* from (select * from NOTICE where upper(${catgo}) like upper('%'||#{keyword}||'%') and pin=0 order by n_seq desc) aa)
+		select * from (select ROWNUM rnum, aa.* from (select * from NOTICE where upper(${catgo}) like upper('%'||#{keyword}||'%') and pin=0 order by length(n_seq) desc, n_seq desc) aa)
 		where rnum>#{startRow} and rnum<=#{endRow}
 		]]>
 	</select>

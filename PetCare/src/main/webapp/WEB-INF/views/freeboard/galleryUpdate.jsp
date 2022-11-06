@@ -24,41 +24,40 @@
 .content{
 	height:200px;
 }
+.headtitle{
+	margin:auto;
+	text-align:center;
+	font-weight:bold;
+}
+.headtitle h3{
+	opacity: .8;
+	background: linear-gradient(to bottom right, #97a3ea 20%, #a091f3 60%, #9283f2 90%) no-repeat;
+	color:white;
+	border-radius:5px;	
+}
 </style>
 </head>
 
 <body>
 <%@include file="../header.jsp" %>
-    
-	<section class="hero-wrap hero-wrap-2" style="background-image: url('');" data-stellar-background-ratio="0.5">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row no-gutters slider-text align-items-end">
-				<div class="col-md-9 ftco-animate pb-5">
-					<p class="breadcrumbs mb-2"><span>Free Board<i class="ion-ios-arrow-forward"></i></span></p>
-					<h1 class="mb-0 bread">자유 게시판</h1>
-				</div>
-			</div>
-		</div>
-	</section>
-	
     <section class="ftco-section bg-light">
     <div class="container">
-    	<h3><span>게시물 수정</span></h3>
-    	<input type="hidden" id="g_seq" value="${galleryMyList.g_seq}">
-		<label for="fildDiv" class="form-label m-0">파일 첨부</label>
-		<button type="button" class="btn btn-outline-primary btn-sm" onClick="uploadClick();">
-			<i class="fa fa-file-image-o" aria-hidden="true"></i>
-		</button>
-		<input class="form-control" type="file" id="upload" style="display:none" multiple accept=""/>
-		<div class="row-cols-4 card-body mb-3 border rounded bg-white" id="imageList"></div>
-		<div class="mb-3">
-			<label for="content" class="form-label m-0">내용</label>
-			<textarea class="form-control" id="content" rows="15">${galleryMyList.content}</textarea>
-		</div>
-		<div class="col-12 mb-3 text-center">
-			<input type="button" class="btn btn-danger" value="취소">
-			<input type="button" class="btn btn-primary" value="수정" onclick="update();">
+    	<div class="headtitle"><h3>갤러리 글 수정</h3></div>
+    	<div class="rounded shadow bg-white p-5">
+	    	<input type="hidden" id="g_seq" value="${galleryMyList.g_seq}">
+			<label for="fildDiv" class="form-label m-0">파일 첨부</label>
+			<button type="button" class="btn btn-outline-primary btn-sm" onClick="uploadClick();">
+				<i class="fa fa-file-image-o" aria-hidden="true"></i>
+			</button>
+			<input class="form-control" type="file" id="upload" style="display:none" multiple accept=""/>
+			<div class="row-cols-4 card-body mb-3 border rounded bg-white" id="imageList"></div>
+			<div class="mb-3">
+				<label for="content" class="form-label m-0">내용</label>
+				<textarea class="form-control" id="content" rows="15">${galleryMyList.content}</textarea>
+			</div>
+			<div class="col-12 mb-3 text-center">
+				<input type="button" class="btn text-black rounded-pill px-4 text-white" id="saveButton" style="background-color:#a091f3;border:none;" value="수정" onclick="update();">
+			</div>
 		</div>
 	</div>
     </section>

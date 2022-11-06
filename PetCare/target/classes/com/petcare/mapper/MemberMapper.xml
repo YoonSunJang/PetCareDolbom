@@ -32,8 +32,8 @@
   	<update id='resetPwd' parameterType="map">
   		update MEMBER set PWD=#{pwd} where EMAIL=#{email}
   	</update>
-  	<select id='userlist' resultType='Member'>
-  		select * from MEMBER
+  	<select id='userlist' resultType='Member'> 
+  		select * from MEMBER order by length(m_seq) desc, m_seq desc
   	</select>
   	<update id='userupdate' parameterType="Member">
   		update MEMBER set EMAIL=#{email}, NICKNAME=#{nickname}, PHONE=#{phone}, ADDR=#{addr}, SAT=#{sat} where M_SEQ=#{m_seq}
@@ -46,7 +46,7 @@
   	</select>
   	<select id="selectPerPage" resultType="Member" parameterType="MemberVo">
   		<![CDATA[
-  			select * from (select ROWNUM rnum, aa. * from (select * from MEMBER order by m_seq desc) aa)
+  			select * from (select ROWNUM rnum, aa. * from (select * from MEMBER order by length(m_seq) desc, m_seq desc) aa)
   			where rnum>#{startRow} and rnum<=#{endRow}
   		]]>
   	</select>
@@ -55,7 +55,7 @@
   	</select>
   	<select id="selectPerPageBySearch" resultType="Member" parameterType="MemberVo">
   		<![CDATA[
-  		select * from (select ROWNUM rnum, aa.* from (select * from MEMBER where upper(${catgo}) like upper('%'||#{keyword}||'%') order by m_seq desc) aa)
+  		select * from (select ROWNUM rnum, aa.* from (select * from MEMBER where upper(${catgo}) like upper('%'||#{keyword}||'%') order by length(m_seq) desc, m_seq desc) aa)
   		where rnum>#{startRow} and rnum<=#{endRow}
   		]]>
   	</select>
@@ -63,7 +63,7 @@
   		select EMAIL from MEMBER where NICKNAME=#{nickname}
   	</select>
   	<update id="updateMemberStar" parameterType="CareReview">
-		update member set sat=ROUND((select sum(star) from carereview)/
+		update member set sat=ROUND((select sum(star) from carereview where dolbomyemail=#{dolbomyEmail})/
 		(select count(*) from carereview where dolbomyemail=#{dolbomyEmail}),2) where email=#{dolbomyEmail}
 	</update>
 	<select id="selectDolbomyInfo" parameterType="String" resultType="Member">

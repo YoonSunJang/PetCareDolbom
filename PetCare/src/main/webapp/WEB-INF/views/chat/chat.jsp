@@ -25,7 +25,7 @@
     <style>
 		.chating{
 			background-color: #ded9f9;
-			height: 500px;
+			height: 515px;
 			overflow: auto;
 			padding:10px;
 		}

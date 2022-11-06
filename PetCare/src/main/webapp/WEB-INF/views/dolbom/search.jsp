@@ -15,9 +15,7 @@
     <link rel="stylesheet" href="/css/magnific-popup.css">
     <link rel="stylesheet" href="/css/flaticon.css">
     <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
-    <!-- 부트스트랩 아이콘 스타일시트 추가-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
-    <!-- selectbox 추가-->
     <link rel="stylesheet" href="/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -33,7 +31,6 @@
     }
     .employer_info{
 	width: 100%;
-   	/*position: relative;*/
    	padding: 10px 0;
    	clear: both;
     }
@@ -65,7 +62,6 @@
     text-align: right;
 	}
 	.dolbom_lists .row .col-md-6{
-	/*border: 1px solid #F7F1F1;*/
 	border-radius: 10px;
 	background-color:white;
 	margin: 10px 0 10px 0;
@@ -81,7 +77,7 @@
 	font-weight:bold;
 	}
 	.headtitle h3{
-	opacity: .8; /*색상연하게 0.0~1.0*/
+	opacity: .8;
 	background: linear-gradient(to bottom right, #97a3ea 20%, #a091f3 60%, #9283f2 90%) no-repeat;
 	color:white;
 	border-radius:5px;	
@@ -112,8 +108,8 @@
 	font-size: 1.2rem;
 	}
 	.content{
-     display: -webkit-box;/* crom */
-     display: -ms-flexbox;/* firefox */
+     display: -webkit-box;
+     display: -ms-flexbox;
      display: box;
 	 text-overflow:ellipsis; 
 	 overflow:hidden; 
@@ -147,14 +143,13 @@
     </style>
   </head>
 <body>
-<%@include file="../header.jsp" %>
-    
-    <section class="ftco-section bg-light">
+<%@include file="../header.jsp" %>    
+    <section class="ftco-section bg-light pt-0">
     	<div class="container py-3 px-5" style="height:1000px;">
 	    	<div class="headtitle">
 	    		<c:choose>
 	    			<c:when test="${empty mydong}"><h3>내 동네 등록하기&nbsp;
-		    			<a href="javascript:check();" style="text-decoration:none;"><i class="bi bi-arrow-right-circle"></i></a></h3>
+		    			<a href="javascript:check();" style="text-decoration:none;"><i class="bi bi-arrow-right-circle text-white"></i></a></h3>
 		    		</c:when>
 	    			<c:otherwise><h3><i class="bi bi-geo-alt"></i>&nbsp;${mydong}</h3></c:otherwise>
 	    		</c:choose>

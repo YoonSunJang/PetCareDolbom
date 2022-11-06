@@ -42,10 +42,8 @@ public class InfoServiceImpl implements InfoService {
 	@Override
 	public InfoVo getInfoVo(int cp, int ps) {
 		long pincount = infomapper.selectCountpin();
-		
 		InfoVo infoVo = new InfoVo(cp, ps, pincount);
 		long totalCount = infomapper.selectCount();
-		System.out.println("서비스단 토탈카운트: "+ totalCount);
 		List<Info> list = infomapper.selectPerPage(infoVo);
 		return new InfoVo(cp, totalCount, ps, list);
 	}
@@ -53,7 +51,6 @@ public class InfoServiceImpl implements InfoService {
 	public InfoVo getInfoVo(int cp, int ps, String catgo, String keyword) {
 		long pincount = infomapper.selectCountpin();
 		InfoVo infoVo = new InfoVo(cp, ps, catgo, keyword, pincount);
-		System.out.println("인포Vo: "+infoVo);
 		long totalCount = infomapper.selectCountBySearch(infoVo);
 		List<Info> list = infomapper.selectPerPageBySearch(infoVo);
 		return new InfoVo(cp, totalCount, ps, list);

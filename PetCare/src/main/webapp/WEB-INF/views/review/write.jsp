@@ -15,13 +15,10 @@
     <link rel="stylesheet" href="/css/jquery.timepicker.css">
     <link rel="stylesheet" href="/css/flaticon.css">
     <link rel="stylesheet" href="/css/style.css">
-
-	<!-- jQuery --> 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous">
 	</script>
-	<!-- 부트스트렙에서 아이콘 끌어올 때 필요한 코드 -->	 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script>
     var selectedImages = [];
@@ -29,6 +26,13 @@
 	$(function(){
 		$("#upload").on("change", function(e){
 			var images = e.target.files;
+			
+			if((images.length+imgNum)>5 || imgNum>=5){
+				alert("사진은 최대 5장까지 업로드가 가능합니다 !");
+				$("#upload").val(null);
+				return false;
+			}
+			
 			imageArr = Array.prototype.slice.call(images);
 			preview(imageArr);
 		});
@@ -74,7 +78,6 @@
 	function submit(){
 		var formData = new FormData();
 		var dl_seq = $("#dl_seq").val();
-		//console.log($("#dl_seq").val());
 		for(var i=0; i<selectedImages.length; i++){
 			if(selectedImages[i] != undefined){
 				formData.append("multipartFiles", selectedImages[i]);
@@ -148,7 +151,7 @@
 	font-weight:bold;
 }
 .headtitle h3{
-	opacity: .8; /*색상연하게 0.0~1.0*/
+	opacity: .8;
 	background: linear-gradient(to bottom right, #97a3ea 20%, #a091f3 60%, #9283f2 90%) no-repeat;
 	color:white;
 	border-radius:5px;	
@@ -191,7 +194,7 @@
 </head>
 
 <body>
-	<section class="ftco-section bg-light">
+	<section class="ftco-section bg-light pt-5">
 		<div class="container">          
             <!-- 돌보미 후기 폼 시작 -->
             <div class="headtitle"><h3>돌보미 후기 등록</h3></div>

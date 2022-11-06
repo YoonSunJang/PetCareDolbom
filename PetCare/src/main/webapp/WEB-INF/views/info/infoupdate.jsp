@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
@@ -98,28 +99,30 @@
     	filter:brightness(1.1) !important;
     	border: 1px solid #dee2e6;
     }
+    .headtitle{
+			margin:auto;
+			text-align:center;
+			font-weight:bold;
+	}
+	.headtitle h3{
+		opacity: .8;
+		background: linear-gradient(to bottom right, #97a3ea 20%, #a091f3 60%, #9283f2 90%) no-repeat;
+		color:white;
+		border-radius:5px;	
+	}
   </style>
     
   </head>
   <body>
 <%@include file="../header.jsp" %>
     
-    <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-          <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs mb-2"><span>Infoupdate<i class="ion-ios-arrow-forward"></i></span></p>
-            <h1 class="mb-0 bread">공지사항 수정페이지</h1>
-          </div>
-        </div>
-      </div>
-    </section>
+    
     
     <section class="ftco-section bg-light">
     <form name="input">
     <input type="hidden" name="n_seq" id="n_seq" value="${infolist.n_seq}"/>
     <div class="container">
+    <div class="headtitle"><h3>공지사항 글 수정</h3></div>
     <div class="input-table row rounded shadow bg-white py-5 px-3 px-md-4">
     	<table id="writetable">
     	<tbody>
@@ -140,7 +143,7 @@
 					    	<c:forEach var="filelist" items="${filelist}">
 							    <tr id="draglist">
 							    <td>${filelist.ofname}</td>
-							    <td><input type='button' id='${filelist.ofname}' onclick='deletefile(this)' value='취소'></td>
+							    <td><input type='button' class='text-white' style='background-color:#a091f3;border:none;border-radius:2px;' id='${filelist.ofname}' onclick='deletefile(this)' value='X'></td>
 							    </tr>
 						    </c:forEach>
 						    <tr>
@@ -155,12 +158,14 @@
     	</tr>
 	    	<tr>
 		    	<td>
+		    		<c:if test="${fn:contains(sessionScope.member.m_seq,'ADMIN') }">
 			    	<div class="write-btn" align="right">
-					    <input type="checkbox" id="pin" name="pin" value=1>고정글<br>
+					    <input type="checkbox" id="pin" name="pin" value=1>고정글<br><br><br>
 						<input type="button" class="btn btn-light rounded-pill px-4 text-secondary"  value="목록"onclick="location.href='/info/list.do'">	
-						<input type="button" class="btn text-black rounded-pill px-4 text-white" style="background-color:#8dc5a6" value="등록" onclick="check()">
+						<input type="button" class="btn text-black rounded-pill px-4 text-white" style="background-color:#a091f3" value="수정" onclick="check()">
 						<input type="hidden" name="admin" value="관리자" id="admin">
 					</div>
+					</c:if>
 				</td>
 	    	</tr>
     	</tbody>
@@ -194,7 +199,18 @@
   <script src="/js/main.js"></script>
   
   <script>
-    
+  	$(document).ready(function(){
+		var m_seq = "${sessionScope.member.m_seq}";
+		if(!m_seq.includes("ADMIN")){
+			alert("관리자만 볼 수 있습니다.");
+			location.href="/";
+		}
+	});
+    $(document).ready(function(){
+    	if("${infolist.pin}" == 1){
+    		$("#pin").prop("checked", true);
+    	}
+    });
  
     //데이터처리 
     var fd = new FormData();
@@ -205,7 +221,9 @@
     	fd.append("title", $("#title").val());
 		fd.append("content", $("#textarea").val());
 		fd.append("admin", "관리자");
-		fd.append("pin", $("#pin").val());
+		if($("#pin").is(":checked")==true){
+			fd.append("pin", $("#pin").val());
+		}
 		fd.append("n_seq", seq);
     	$.ajax({
     		type: "POST",
@@ -273,11 +291,10 @@
     				var tag = new StringBuffer();
     				tag.append('<tr id = "draglist">');
     				tag.append('<td>'+this.name+'</td>');
-    				tag.append("<td><input type='button' id='"+this.name+"' onclick='delFile(this)' value='취소'></td>");
+    				tag.append("<td><input type='button' class='text-white' style='background-color:#a091f3;border:none;border-radius:2px;' id='"+this.name+"' onclick='delFile(this)' value='X'></td>");
     				tag.append('</tr>');
     				return tag.toString();
     			}
-    			
     	}
     	return file.format().tag();
     }
@@ -332,7 +349,7 @@
 		{
     		if(document.input.elements[i].value == "")
 			{
-    			if(i>=3) continue;
+    			if(i>1&&i<(document.input.elements.length-5)) continue;
     			alert("모든 값을 입력하셔야 합니다.");
     			return false;
     		}
@@ -347,11 +364,10 @@
     	$("#clickupload").on("change", function(e){
     		var files = e.target.files;
     		handleFileUpload(files);
+    		e.target.value="";
     	});
     	
     });
-    
-    
     </script>
     
   </body>

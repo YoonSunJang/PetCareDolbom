@@ -49,9 +49,7 @@ public class ReportServiceImpl implements ReportService {
 	
 	@Override
 	public ReportVo getReportVo(int cp, int ps, String catgo, String keyword, String rep_state) {
-		System.out.println("서비스단 테스트: "+ rep_state);
 		ReportVo reportVo = new ReportVo(cp, ps, catgo, keyword, rep_state);
-		System.out.println("서비스단 테스트: "+ reportVo);
 		long totalCount = reportmapper.selectCountBySearch(reportVo);
 		List<Report> list = reportmapper.selectPerPageBySearch(reportVo);
 		return new ReportVo(cp, totalCount, ps, list);
